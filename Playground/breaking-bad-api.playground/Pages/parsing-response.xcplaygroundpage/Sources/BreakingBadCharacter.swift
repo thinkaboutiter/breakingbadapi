@@ -6,17 +6,17 @@
 import Foundation
 
 // MARK: - BreakingBadCharacter
-public struct BreakingBadCharacter: Codable {
+public struct BreakingBadCharacter: Codable, CustomDebugStringConvertible {
     let charID: Int
     let name: String
-    let birthday: Birthday
+    let birthday: String
     let occupation: [String]
     let img: String
-    let status: Status
+    let status: String
     let nickname: String
     let appearance: [Int]
     let portrayed: String
-    let category: Category
+    let category: String
     let betterCallSaulAppearance: [Int]
 
     enum CodingKeys: String, CodingKey {
@@ -26,26 +26,24 @@ public struct BreakingBadCharacter: Codable {
     }
 }
 
-public enum Birthday: String, Codable {
-    case the07081993 = "07-08-1993"
-    case the08111970 = "08-11-1970"
-    case the09071958 = "09-07-1958"
-    case the09241984 = "09-24-1984"
-    case unknown = "Unknown"
-}
+// MARK: - Debug description
+public extension BreakingBadCharacter {
 
-public enum Category: String, Codable {
-    case betterCallSaul = "Better Call Saul"
-    case breakingBad = "Breaking Bad"
-    case breakingBadBetterCallSaul = "Breaking Bad, Better Call Saul"
+    var debugDescription: String {
+        let result: String = """
+        \n
+        charID=\(self.charID)
+        name=\(self.name)
+        birthday=\(self.birthday)
+        occupation=\(self.occupation)
+        img=\(self.img)
+        status=\(self.status)
+        nickname=\(self.nickname)
+        appearance=\(self.appearance)
+        portrayed=\(self.portrayed)
+        category=\(self.category)
+        betterCallSaulAppearance=\(self.betterCallSaulAppearance)
+        """
+        return result
+    }
 }
-
-public enum Status: String, Codable {
-    case alive = "Alive"
-    case deceased = "Deceased"
-    case empty = "?"
-    case presumedDead = "Presumed dead"
-    case unknown = "Unknown"
-}
-
-public typealias BreakingBadCharacters = [BreakingBadCharacter]

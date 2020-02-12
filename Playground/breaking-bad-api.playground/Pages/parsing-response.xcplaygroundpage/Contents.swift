@@ -1,9 +1,7 @@
 import Foundation
 
-let path: String = Bundle.main.bundlePath
 let fileName: String = "characters.json"
 let fileUrl: URL = URL(fileReferenceLiteralResourceName: fileName)
-
 
 func characters(from url: URL) throws -> [BreakingBadCharacter] {
     let jsonData: Data = try Data(contentsOf: url)
