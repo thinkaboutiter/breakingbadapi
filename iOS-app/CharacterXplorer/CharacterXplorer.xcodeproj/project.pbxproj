@@ -16,8 +16,6 @@
 		4FAC0A7D23F7F48600B1FB76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FAC0A7C23F7F48600B1FB76 /* Assets.xcassets */; };
 		4FAC0A9B23F7FA8600B1FB76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC0A8C23F7FA8500B1FB76 /* AppDelegate.swift */; };
 		4FAC0AA023F7FF7A00B1FB76 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC0A9F23F7FF7A00B1FB76 /* RootViewController.swift */; };
-		4FAC0AA223F7FF8C00B1FB76 /* RootModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC0AA123F7FF8C00B1FB76 /* RootModel.swift */; };
-		4FAC0AA423F7FF9800B1FB76 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC0AA323F7FF9800B1FB76 /* RootViewModel.swift */; };
 		4FAC0AA623F7FFC600B1FB76 /* RootDependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC0AA523F7FFC600B1FB76 /* RootDependencyContainer.swift */; };
 		4FAC0AA923F8001600B1FB76 /* SimpleLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 4FAC0AA823F8001600B1FB76 /* SimpleLogger */; };
 		4FAC0AAB23F8010B00B1FB76 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FAC0AAA23F8010B00B1FB76 /* RootViewController.xib */; };
@@ -39,8 +37,6 @@
 		4FAC0A8C23F7FA8500B1FB76 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FAC0A9A23F7FA8500B1FB76 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FAC0A9F23F7FF7A00B1FB76 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		4FAC0AA123F7FF8C00B1FB76 /* RootModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootModel.swift; sourceTree = "<group>"; };
-		4FAC0AA323F7FF9800B1FB76 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		4FAC0AA523F7FFC600B1FB76 /* RootDependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootDependencyContainer.swift; sourceTree = "<group>"; };
 		4FAC0AAA23F8010B00B1FB76 /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 		4FAC0AAC23F80B4200B1FB76 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -205,19 +201,9 @@
 			isa = PBXGroup;
 			children = (
 				4FAC0AA523F7FFC600B1FB76 /* RootDependencyContainer.swift */,
-				4FAC0A9E23F7FF6000B1FB76 /* Model */,
 				4FAC0A9623F7FA8500B1FB76 /* View */,
-				4FAC0A9523F7FA8500B1FB76 /* ViewModel */,
 			);
 			path = Root;
-			sourceTree = "<group>";
-		};
-		4FAC0A9523F7FA8500B1FB76 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				4FAC0AA323F7FF9800B1FB76 /* RootViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		4FAC0A9623F7FA8500B1FB76 /* View */ = {
@@ -244,14 +230,6 @@
 				4FAC0A9A23F7FA8500B1FB76 /* Info.plist */,
 			);
 			path = SupportFiles;
-			sourceTree = "<group>";
-		};
-		4FAC0A9E23F7FF6000B1FB76 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				4FAC0AA123F7FF8C00B1FB76 /* RootModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,10 +332,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FAC0AA223F7FF8C00B1FB76 /* RootModel.swift in Sources */,
 				4FAC0AA023F7FF7A00B1FB76 /* RootViewController.swift in Sources */,
 				4F8FE1AA23F8436A001E0169 /* CharactersListViewController.swift in Sources */,
-				4FAC0AA423F7FF9800B1FB76 /* RootViewModel.swift in Sources */,
 				4F8FE1B223F843C0001E0169 /* CharactersListDependencyContainer.swift in Sources */,
 				4F8FE1AE23F84390001E0169 /* CharactersListViewModel.swift in Sources */,
 				4F8FE1B023F843A1001E0169 /* CharactersListModel.swift in Sources */,
