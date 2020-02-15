@@ -48,8 +48,22 @@ class RootViewController: BaseViewController {
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-        self.testLabel.text = NSLocalizedString("RootViewController.testLabel.text", comment: AppConstants.LocalizedStringComment.labelTitle)
+        self.embedCharactersListViewController()
+    }
+}
+
+// MARK: - Embedding
+private extension RootViewController {
+    
+    func embedCharactersListViewController() {
+        let vc: CharactersListViewController = self.charactersListViewControllerFactory.makeCharactersListViewController()
+        let nc: BaseNavigationController = BaseNavigationController(rootViewController: vc)
+        do {
+            try self.embed(nc,
+                           containerView: self.view)
+        }
+        catch let error as NSError {
+            Logger.error.message().object(error)
+        }
     }
 }
