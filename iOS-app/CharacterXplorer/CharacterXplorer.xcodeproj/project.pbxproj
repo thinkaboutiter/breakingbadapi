@@ -13,8 +13,6 @@
 		4F8FE1AE23F84390001E0169 /* CharactersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1AD23F84390001E0169 /* CharactersListViewModel.swift */; };
 		4F8FE1B023F843A1001E0169 /* CharactersListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1AF23F843A1001E0169 /* CharactersListModel.swift */; };
 		4F8FE1B223F843C0001E0169 /* CharactersListDependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1B123F843C0001E0169 /* CharactersListDependencyContainer.swift */; };
-		4F8FE1B423F84E2B001E0169 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1B323F84E2B001E0169 /* UIViewController+Extensions.swift */; };
-		4F8FE1B623F84EDB001E0169 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1B523F84EDB001E0169 /* BaseNavigationController.swift */; };
 		4FAC0A7D23F7F48600B1FB76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FAC0A7C23F7F48600B1FB76 /* Assets.xcassets */; };
 		4FAC0A9B23F7FA8600B1FB76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC0A8C23F7FA8500B1FB76 /* AppDelegate.swift */; };
 		4FAC0AA023F7FF7A00B1FB76 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC0A9F23F7FF7A00B1FB76 /* RootViewController.swift */; };
@@ -34,8 +32,6 @@
 		4F8FE1AD23F84390001E0169 /* CharactersListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListViewModel.swift; sourceTree = "<group>"; };
 		4F8FE1AF23F843A1001E0169 /* CharactersListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListModel.swift; sourceTree = "<group>"; };
 		4F8FE1B123F843C0001E0169 /* CharactersListDependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListDependencyContainer.swift; sourceTree = "<group>"; };
-		4F8FE1B323F84E2B001E0169 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
-		4F8FE1B523F84EDB001E0169 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		4FAC0A7023F7F48200B1FB76 /* CharacterXplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterXplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FAC0A7C23F7F48600B1FB76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4FAC0A8C23F7FA8500B1FB76 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -147,7 +143,6 @@
 		4FAC0A8A23F7FA8500B1FB76 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				4F8FE1B323F84E2B001E0169 /* UIViewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -224,7 +219,6 @@
 			isa = PBXGroup;
 			children = (
 				4FAC0AAC23F80B4200B1FB76 /* BaseViewController.swift */,
-				4F8FE1B523F84EDB001E0169 /* BaseNavigationController.swift */,
 			);
 			path = _UIBaseClasses;
 			sourceTree = "<group>";
@@ -339,12 +333,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FAC0AA023F7FF7A00B1FB76 /* RootViewController.swift in Sources */,
-				4F8FE1B423F84E2B001E0169 /* UIViewController+Extensions.swift in Sources */,
 				4F8FE1AA23F8436A001E0169 /* CharactersListViewController.swift in Sources */,
 				4F8FE1B223F843C0001E0169 /* CharactersListDependencyContainer.swift in Sources */,
 				4F8FE1AE23F84390001E0169 /* CharactersListViewModel.swift in Sources */,
 				4F8FE1B023F843A1001E0169 /* CharactersListModel.swift in Sources */,
-				4F8FE1B623F84EDB001E0169 /* BaseNavigationController.swift in Sources */,
 				4FAC0AA623F7FFC600B1FB76 /* RootDependencyContainer.swift in Sources */,
 				4F8FE1A423F83576001E0169 /* BreakingBadCharacter.swift in Sources */,
 				4FAC0AB223F80D3F00B1FB76 /* AppConstants.swift in Sources */,
