@@ -1,2 +1,5 @@
 /* Root Screen*/
 "RootViewController.testLabel.text" = "Hello Root";
+
+/* CharactersListViewController */
+"CharactersListViewController.testLabel.text" = "Hello Character List";

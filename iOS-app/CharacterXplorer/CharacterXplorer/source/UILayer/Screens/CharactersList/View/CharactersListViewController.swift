@@ -18,6 +18,7 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     
     // MARK: - Properties
     private let viewModel: CharactersListViewModel
+    @IBOutlet private weak var testLabel: UILabel!
     
     // MARK: - Initialization
     @available(*, unavailable, message: "Creating this view controller with `init(coder:)` is unsupported in favor of initializer dependency injection.")
@@ -49,5 +50,6 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.testLabel.text = NSLocalizedString("CharactersListViewController.testLabel.text", comment: AppConstants.LocalizedStringComment.labelTitle)
     }
 }

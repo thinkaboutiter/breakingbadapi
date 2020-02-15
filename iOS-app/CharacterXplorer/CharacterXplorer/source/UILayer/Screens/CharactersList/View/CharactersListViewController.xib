@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CharactersListViewController" customModule="CharacterXplorer" customModuleProvider="target">
             <connections>
+                <outlet property="testLabel" destination="m52-g7-SOc" id="nDT-e4-Wpv"/>
                 <outlet property="view" destination="iYW-tR-T8N" id="HP8-Gc-Re9"/>
             </connections>
         </placeholder>
