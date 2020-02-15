@@ -14,7 +14,7 @@ protocol RootViewControllerFactory {
     func makeRootViewController() -> RootViewController
 }
 
-class RootViewController: UIViewController, RootViewModelConsumer {
+class RootViewController: BaseViewController, RootViewModelConsumer {
     
     // MARK: - Properties
     private let viewModel: RootViewModel
