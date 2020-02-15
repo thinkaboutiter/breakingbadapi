@@ -15,13 +15,14 @@ protocol CharactersListModelConsumer: AnyObject {}
 /// APIs for `Model` to expose to `ViewModel`
 protocol CharactersListModel: AnyObject {
     func setModelConsumer(_ newValue: CharactersListModelConsumer)
+    func characters() -> [BreakingBadCharacter]
 }
 
 class CharactersListModelImpl: CharactersListModel {
     
     // MARK: - Properties
     private weak var modelConsumer: CharactersListModelConsumer!
-    private lazy var characters: [BreakingBadCharacter] = {
+    private lazy var _characters: [BreakingBadCharacter] = {
         var result: [BreakingBadCharacter] = []
         do {
             result = try self.loadCharacters()
@@ -44,6 +45,10 @@ class CharactersListModelImpl: CharactersListModel {
     // MARK: - CharactersListModel protocol
     func setModelConsumer(_ newValue: CharactersListModelConsumer) {
         self.modelConsumer = newValue
+    }
+    
+    func characters() -> [BreakingBadCharacter] {
+        return self._characters
     }
 }
 

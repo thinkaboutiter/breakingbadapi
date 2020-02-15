@@ -16,6 +16,7 @@ protocol CharactersListViewModelConsumer: AnyObject {
 /// APIs for `ViewModel` to expose to `View`
 protocol CharactersListViewModel: AnyObject {
     func setViewModelConsumer(_ newValue: CharactersListViewModelConsumer)
+    func getCharactes() -> [BreakingBadCharacter]
 }
 
 class CharactersListViewModelImpl: CharactersListViewModel, CharactersListModelConsumer {
@@ -38,6 +39,10 @@ class CharactersListViewModelImpl: CharactersListViewModel, CharactersListModelC
     // MARK: - CharactersListViewModel protocol
     func setViewModelConsumer(_ newValue: CharactersListViewModelConsumer) {
         self.viewModelConsumer = newValue
+    }
+    
+    func getCharactes() -> [BreakingBadCharacter] {
+        return self.model.characters()
     }
     
     // MARK: - CharactersListModelConsumer protocol
