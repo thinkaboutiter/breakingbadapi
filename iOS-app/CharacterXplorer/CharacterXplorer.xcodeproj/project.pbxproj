@@ -16,6 +16,7 @@
 		4F8FE1B423F84E2B001E0169 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1B323F84E2B001E0169 /* UIViewController+Extensions.swift */; };
 		4F8FE1B623F84EDB001E0169 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1B523F84EDB001E0169 /* BaseNavigationController.swift */; };
 		4F8FE1BE23F893A0001E0169 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F8FE1BC23F8939F001E0169 /* Localizable.strings */; };
+		4F8FE1C223F89469001E0169 /* characters.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F8FE1C123F89469001E0169 /* characters.json */; };
 		4FAC0A7D23F7F48600B1FB76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FAC0A7C23F7F48600B1FB76 /* Assets.xcassets */; };
 		4FAC0A9B23F7FA8600B1FB76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC0A8C23F7FA8500B1FB76 /* AppDelegate.swift */; };
 		4FAC0AA023F7FF7A00B1FB76 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC0A9F23F7FF7A00B1FB76 /* RootViewController.swift */; };
@@ -37,6 +38,7 @@
 		4F8FE1B323F84E2B001E0169 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		4F8FE1B523F84EDB001E0169 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		4F8FE1BD23F8939F001E0169 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4F8FE1C123F89469001E0169 /* characters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = characters.json; sourceTree = "<group>"; };
 		4FAC0A7023F7F48200B1FB76 /* CharacterXplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterXplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FAC0A7C23F7F48600B1FB76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4FAC0A8C23F7FA8500B1FB76 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		4F8FE1BB23F8939F001E0169 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				4F8FE1C123F89469001E0169 /* characters.json */,
 				4F8FE1BC23F8939F001E0169 /* Localizable.strings */,
 			);
 			path = resources;
@@ -314,6 +317,7 @@
 				4F8FE1BE23F893A0001E0169 /* Localizable.strings in Resources */,
 				4F8FE1AC23F84380001E0169 /* CharactersListViewController.xib in Resources */,
 				4FAC0A7D23F7F48600B1FB76 /* Assets.xcassets in Resources */,
+				4F8FE1C223F89469001E0169 /* characters.json in Resources */,
 				4FAC0AAE23F80C8B00B1FB76 /* LaunchScreen.storyboard in Resources */,
 				4FAC0AAB23F8010B00B1FB76 /* RootViewController.xib in Resources */,
 			);
