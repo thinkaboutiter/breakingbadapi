@@ -18,6 +18,7 @@ class RootViewController: BaseViewController, RootViewModelConsumer {
     
     // MARK: - Properties
     private let viewModel: RootViewModel
+    @IBOutlet weak var testLabel: UILabel!
     
     // MARK: - Initialization
     @available(*, unavailable, message: "Creating this view controller with `init(coder:)` is unsupported in favor of initializer dependency injection.")
@@ -50,5 +51,6 @@ class RootViewController: BaseViewController, RootViewModelConsumer {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.testLabel.text = NSLocalizedString("RootViewController.testLabel.text", comment: AppConstants.LocalizedStringComment.labelTitle)
     }
 }
