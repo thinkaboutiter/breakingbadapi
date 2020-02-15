@@ -10,6 +10,7 @@
 		4FAC0A7D23F7F48600B1FB76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FAC0A7C23F7F48600B1FB76 /* Assets.xcassets */; };
 		4FAC0A9B23F7FA8600B1FB76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC0A8C23F7FA8500B1FB76 /* AppDelegate.swift */; };
 		4FAC0A9C23F7FA8600B1FB76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FAC0A9923F7FA8500B1FB76 /* LaunchScreen.storyboard */; };
+		4FAC0AA923F8001600B1FB76 /* SimpleLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 4FAC0AA823F8001600B1FB76 /* SimpleLogger */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FAC0AA923F8001600B1FB76 /* SimpleLogger in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +205,9 @@
 			dependencies = (
 			);
 			name = CharacterXplorer;
+			packageProductDependencies = (
+				4FAC0AA823F8001600B1FB76 /* SimpleLogger */,
+			);
 			productName = CharacterXplorer;
 			productReference = 4FAC0A7023F7F48200B1FB76 /* CharacterXplorer.app */;
 			productType = "com.apple.product-type.application";
@@ -231,6 +236,9 @@
 				Base,
 			);
 			mainGroup = 4FAC0A6723F7F48200B1FB76;
+			packageReferences = (
+				4FAC0AA723F8001600B1FB76 /* XCRemoteSwiftPackageReference "SimpleLogger" */,
+			);
 			productRefGroup = 4FAC0A7123F7F48200B1FB76 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -458,6 +466,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4FAC0AA723F8001600B1FB76 /* XCRemoteSwiftPackageReference "SimpleLogger" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:thinkaboutiter/SimpleLogger.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4FAC0AA823F8001600B1FB76 /* SimpleLogger */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4FAC0AA723F8001600B1FB76 /* XCRemoteSwiftPackageReference "SimpleLogger" */;
+			productName = SimpleLogger;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4FAC0A6823F7F48200B1FB76 /* Project object */;
 }
