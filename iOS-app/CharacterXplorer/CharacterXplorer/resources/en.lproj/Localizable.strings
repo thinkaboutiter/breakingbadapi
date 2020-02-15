@@ -2,4 +2,4 @@
 "RootViewController.testLabel.text" = "Hello Root";
 
 /* CharactersListViewController */
-"CharactersListViewController.testLabel.text" = "Hello Character List";
+"CharactersListViewController.testLabel.text" = "Hello Characters List";
