@@ -137,6 +137,6 @@ extension CharactersListViewController: UITableViewDelegate {
 private extension CharactersListViewController {
     
     enum Constants {
-        static let cellHeight: CGFloat = 64.0
+        static let cellHeight: CGFloat = 82.0
     }
 }

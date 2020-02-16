@@ -16,10 +16,19 @@ class CharacterTableViewCell: BaseTableViewCell {
     @IBOutlet private weak var nicknameLabel: UILabel!
     
     // MARK: - Life cycle
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
         // TODO: stop any image requests
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        self.avatarImageView.round(cornerRadius: self.avatarImageView.bounds.width * 0.5)
     }
     
     // MARK: - Configurations

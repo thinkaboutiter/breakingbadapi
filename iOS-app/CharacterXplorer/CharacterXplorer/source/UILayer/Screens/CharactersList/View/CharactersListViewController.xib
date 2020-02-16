@@ -19,16 +19,16 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YWw-gP-QMi" userLabel="characters-table-view" customClass="CharactersTableView" customModule="CharacterXplorer" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="Yqf-Ja-jqm" firstAttribute="trailing" secondItem="YWw-gP-QMi" secondAttribute="trailing" id="Alq-kv-Y2W"/>
-                <constraint firstItem="YWw-gP-QMi" firstAttribute="top" secondItem="Yqf-Ja-jqm" secondAttribute="top" id="Fhr-lc-LT5"/>
-                <constraint firstItem="YWw-gP-QMi" firstAttribute="leading" secondItem="Yqf-Ja-jqm" secondAttribute="leading" id="j6I-as-uIL"/>
-                <constraint firstItem="Yqf-Ja-jqm" firstAttribute="bottom" secondItem="YWw-gP-QMi" secondAttribute="bottom" id="mSf-Q6-lzZ"/>
+                <constraint firstAttribute="trailing" secondItem="YWw-gP-QMi" secondAttribute="trailing" id="Alq-kv-Y2W"/>
+                <constraint firstItem="YWw-gP-QMi" firstAttribute="top" secondItem="iYW-tR-T8N" secondAttribute="top" id="Fhr-lc-LT5"/>
+                <constraint firstItem="YWw-gP-QMi" firstAttribute="leading" secondItem="iYW-tR-T8N" secondAttribute="leading" id="j6I-as-uIL"/>
+                <constraint firstAttribute="bottom" secondItem="YWw-gP-QMi" secondAttribute="bottom" id="mSf-Q6-lzZ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Yqf-Ja-jqm"/>
             <point key="canvasLocation" x="-133" y="-37"/>
