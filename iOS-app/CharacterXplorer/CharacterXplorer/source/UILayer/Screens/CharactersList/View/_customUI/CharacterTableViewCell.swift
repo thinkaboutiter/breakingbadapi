@@ -46,25 +46,7 @@ class CharacterTableViewCell: BaseTableViewCell {
     func configure(with character: BreakingBadCharacter) {
         self.nameLabel.text = character.name
         self.nicknameLabel.text = character.nickname
-        self.configureAvatarImageWithUrlString(character.imageUrlString)
-    }
-    
-    private func configureAvatarImageWithUrlString(_ urlString: String) {
-        guard let valid_url: URL = URL(string: urlString) else {
-            return
-        }
-        self.avatarImageView.contentMode = .scaleAspectFill
-        if let existingImage: UIImage = self.imageCacheManager.image(withIdentifier: urlString) {
-            self.avatarImageView.image = existingImage
-        }
-        else {
-            self.avatarImageView
-                .af_setImage(withURL: valid_url)
-                { (dataResponse: DataResponse<UIImage>) in
-                    if let value: UIImage = dataResponse.result.value {
-                        self.imageCacheManager.add(value, withIdentifier: urlString)
-                    }
-            }
-        }
+        self.avatarImageView.configure(with: character.imageUrlString,
+                                       using: self.imageCacheManager)
     }
 }
