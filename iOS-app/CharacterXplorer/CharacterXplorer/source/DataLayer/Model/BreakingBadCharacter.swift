@@ -14,6 +14,7 @@ protocol BreakingBadCharacter {
     var imageUrlString: String { get }
     var nickname: String { get }
     var seasonAppearance: [Int] { get }
+    var status: String { get }
 }
 
 struct BreakingBadCharacterAppEntity: BreakingBadCharacter {
@@ -24,6 +25,7 @@ struct BreakingBadCharacterAppEntity: BreakingBadCharacter {
     let imageUrlString: String
     let nickname: String
     let seasonAppearance: [Int]
+    let status: String
     
     // MARK: - Initialization
     init(webEntity: BreakingBadCharacterWebEntity) {
@@ -32,6 +34,7 @@ struct BreakingBadCharacterAppEntity: BreakingBadCharacter {
         self.imageUrlString = webEntity.imageUrlString
         self.nickname = webEntity.nickname
         self.seasonAppearance = webEntity.appearance
+        self.status = webEntity.status
     }
 }
 
