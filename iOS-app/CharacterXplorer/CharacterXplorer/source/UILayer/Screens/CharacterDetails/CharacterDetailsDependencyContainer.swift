@@ -15,11 +15,13 @@ class CharacterDetailsDependencyContainerImpl: CharacterDetailsDependencyContain
     
     // MARK: - Properties
     private let parent: CharactersListDependencyContainer
+    private let getCharacter: () -> BreakingBadCharacter
     
     // MARK: - Initialization
-    init(parent: CharactersListDependencyContainer) {
-        // setup
+    init(parent: CharactersListDependencyContainer,
+         characterProvider provider: @escaping () -> BreakingBadCharacter) {
         self.parent = parent
+        self.getCharacter = provider
         Logger.success.message()
     }
     
@@ -35,7 +37,8 @@ class CharacterDetailsDependencyContainerImpl: CharacterDetailsDependencyContain
     }
     
     private func makeCharacterDetailsViewModel() -> CharacterDetailsViewModel {
-        let model: CharacterDetailsModel = CharacterDetailsModelImpl()
+        let character: BreakingBadCharacter = self.getCharacter()
+        let model: CharacterDetailsModel = CharacterDetailsModelImpl(character: character)
         let result: CharacterDetailsViewModel = CharacterDetailsViewModelImpl(model: model)
         return result
     }

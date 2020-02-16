@@ -15,6 +15,7 @@ protocol CharacterDetailsViewModelConsumer: AnyObject {}
 /// APIs for `ViewModel` to expose to `View`
 protocol CharacterDetailsViewModel: AnyObject {
     func setViewModelConsumer(_ newValue: CharacterDetailsViewModelConsumer)
+    func getCharacter() -> BreakingBadCharacter
 }
 
 class CharacterDetailsViewModelImpl: CharacterDetailsViewModel, CharacterDetailsModelConsumer {
@@ -37,6 +38,11 @@ class CharacterDetailsViewModelImpl: CharacterDetailsViewModel, CharacterDetails
     // MARK: - CharacterDetailsViewModel protocol
     func setViewModelConsumer(_ newValue: CharacterDetailsViewModelConsumer) {
         self.viewModelConsumer = newValue
+    }
+    
+    func getCharacter() -> BreakingBadCharacter {
+        let result: BreakingBadCharacter = self.model.character()
+        return result
     }
     
     // MARK: - CharacterDetailsModelConsumer protocol

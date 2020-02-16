@@ -15,15 +15,18 @@ protocol CharacterDetailsModelConsumer: AnyObject {}
 /// APIs for `Model` to expose to `ViewModel`
 protocol CharacterDetailsModel: AnyObject {
     func setModelConsumer(_ newValue: CharacterDetailsModelConsumer)
+    func character() -> BreakingBadCharacter
 }
 
 class CharacterDetailsModelImpl: CharacterDetailsModel {
     
     // MARK: - Properties
     private weak var modelConsumer: CharacterDetailsModelConsumer!
+    private let _character: BreakingBadCharacter
     
     // MARK: - Initialization
-    init() {
+    init(character: BreakingBadCharacter) {
+        self._character = character
         Logger.success.message()
     }
     
@@ -34,5 +37,9 @@ class CharacterDetailsModelImpl: CharacterDetailsModel {
     // MARK: - CharacterDetailsModel protocol
     func setModelConsumer(_ newValue: CharacterDetailsModelConsumer) {
         self.modelConsumer = newValue
+    }
+    
+    func character() -> BreakingBadCharacter {
+        return self._character
     }
 }
