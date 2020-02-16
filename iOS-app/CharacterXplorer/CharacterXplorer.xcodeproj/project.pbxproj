@@ -24,6 +24,8 @@
 		4F8FE1CB23F8AE50001E0169 /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1CA23F8AE50001E0169 /* CharacterTableViewCell.swift */; };
 		4F8FE1CD23F8AE61001E0169 /* CharacterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F8FE1CC23F8AE61001E0169 /* CharacterTableViewCell.xib */; };
 		4F9C3EBC23F8CAB300F70723 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9C3EBB23F8CAB300F70723 /* UIView+Extensions.swift */; };
+		4F9C3EBF23F8CDE500F70723 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4F9C3EBE23F8CDE500F70723 /* AlamofireImage */; };
+		4F9C3EC123F8D22900F70723 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9C3EC023F8D22900F70723 /* ImageCacheManager.swift */; };
 		4FAC0A7D23F7F48600B1FB76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FAC0A7C23F7F48600B1FB76 /* Assets.xcassets */; };
 		4FAC0A9B23F7FA8600B1FB76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC0A8C23F7FA8500B1FB76 /* AppDelegate.swift */; };
 		4FAC0AA023F7FF7A00B1FB76 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC0A9F23F7FF7A00B1FB76 /* RootViewController.swift */; };
@@ -53,6 +55,7 @@
 		4F8FE1CA23F8AE50001E0169 /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
 		4F8FE1CC23F8AE61001E0169 /* CharacterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CharacterTableViewCell.xib; sourceTree = "<group>"; };
 		4F9C3EBB23F8CAB300F70723 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		4F9C3EC023F8D22900F70723 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		4FAC0A7023F7F48200B1FB76 /* CharacterXplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterXplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FAC0A7C23F7F48600B1FB76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4FAC0A8C23F7FA8500B1FB76 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +74,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FAC0AA923F8001600B1FB76 /* SimpleLogger in Frameworks */,
+				4F9C3EBF23F8CDE500F70723 /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +180,7 @@
 		4FAC0A8923F7FA8500B1FB76 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				4F9C3EC023F8D22900F70723 /* ImageCacheManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 			name = CharacterXplorer;
 			packageProductDependencies = (
 				4FAC0AA823F8001600B1FB76 /* SimpleLogger */,
+				4F9C3EBE23F8CDE500F70723 /* AlamofireImage */,
 			);
 			productName = CharacterXplorer;
 			productReference = 4FAC0A7023F7F48200B1FB76 /* CharacterXplorer.app */;
@@ -328,6 +334,7 @@
 			mainGroup = 4FAC0A6723F7F48200B1FB76;
 			packageReferences = (
 				4FAC0AA723F8001600B1FB76 /* XCRemoteSwiftPackageReference "SimpleLogger" */,
+				4F9C3EBD23F8CDE500F70723 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			productRefGroup = 4FAC0A7123F7F48200B1FB76 /* Products */;
 			projectDirPath = "";
@@ -394,6 +401,7 @@
 				4FAC0AB223F80D3F00B1FB76 /* AppConstants.swift in Sources */,
 				4F9C3EBC23F8CAB300F70723 /* UIView+Extensions.swift in Sources */,
 				4FAC0A9B23F7FA8600B1FB76 /* AppDelegate.swift in Sources */,
+				4F9C3EC123F8D22900F70723 /* ImageCacheManager.swift in Sources */,
 				4F8FE1C423F89C69001E0169 /* ErrorCreator.swift in Sources */,
 				4F8FE1C923F8ADCA001E0169 /* BaseTableViewCell.swift in Sources */,
 				4F72437E23F8B9F500E8933E /* CharactersTableView.swift in Sources */,
@@ -599,6 +607,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4F9C3EBD23F8CDE500F70723 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.6.0;
+			};
+		};
 		4FAC0AA723F8001600B1FB76 /* XCRemoteSwiftPackageReference "SimpleLogger" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:thinkaboutiter/SimpleLogger.git";
@@ -610,6 +626,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4F9C3EBE23F8CDE500F70723 /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F9C3EBD23F8CDE500F70723 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
+		};
 		4FAC0AA823F8001600B1FB76 /* SimpleLogger */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4FAC0AA723F8001600B1FB76 /* XCRemoteSwiftPackageReference "SimpleLogger" */;
