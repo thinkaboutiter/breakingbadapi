@@ -28,7 +28,8 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     
     @available(*, unavailable, message: "Creating this view controller with `init(nibName:bundle:)` is unsupported in favor of initializer dependency injection.")
     override init(nibName nibNameOrNil: String?,
-                  bundle nibBundleOrNil: Bundle?) {
+                  bundle nibBundleOrNil: Bundle?)
+    {
         fatalError("Creating this view controller with `init(nibName:bundle:)` is unsupported in favor of dependency injection initializer.")
     }
     
