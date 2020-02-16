@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F72437E23F8B9F500E8933E /* CharactersTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F72437D23F8B9F500E8933E /* CharactersTableView.swift */; };
 		4F8FE1A423F83576001E0169 /* BreakingBadCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1A323F83576001E0169 /* BreakingBadCharacter.swift */; };
 		4F8FE1AA23F8436A001E0169 /* CharactersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1A923F8436A001E0169 /* CharactersListViewController.swift */; };
 		4F8FE1AC23F84380001E0169 /* CharactersListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F8FE1AB23F84380001E0169 /* CharactersListViewController.xib */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F72437D23F8B9F500E8933E /* CharactersTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersTableView.swift; sourceTree = "<group>"; };
 		4F8FE1A323F83576001E0169 /* BreakingBadCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakingBadCharacter.swift; sourceTree = "<group>"; };
 		4F8FE1A923F8436A001E0169 /* CharactersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListViewController.swift; sourceTree = "<group>"; };
 		4F8FE1AB23F84380001E0169 /* CharactersListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CharactersListViewController.xib; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			children = (
 				4F8FE1CA23F8AE50001E0169 /* CharacterTableViewCell.swift */,
 				4F8FE1CC23F8AE61001E0169 /* CharacterTableViewCell.xib */,
+				4F72437D23F8B9F500E8933E /* CharactersTableView.swift */,
 			);
 			path = _customUI;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				4FAC0A9B23F7FA8600B1FB76 /* AppDelegate.swift in Sources */,
 				4F8FE1C423F89C69001E0169 /* ErrorCreator.swift in Sources */,
 				4F8FE1C923F8ADCA001E0169 /* BaseTableViewCell.swift in Sources */,
+				4F72437E23F8B9F500E8933E /* CharactersTableView.swift in Sources */,
 				4FAC0AAD23F80B4200B1FB76 /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
