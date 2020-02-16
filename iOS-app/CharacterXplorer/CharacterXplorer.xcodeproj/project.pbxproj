@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F06DCDF23F9FF9F00C6F131 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F06DCDE23F9FF9F00C6F131 /* UIImageView+Extensions.swift */; };
 		4F72437E23F8B9F500E8933E /* CharactersTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F72437D23F8B9F500E8933E /* CharactersTableView.swift */; };
 		4F8FE1A423F83576001E0169 /* BreakingBadCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1A323F83576001E0169 /* BreakingBadCharacter.swift */; };
 		4F8FE1AA23F8436A001E0169 /* CharactersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1A923F8436A001E0169 /* CharactersListViewController.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F06DCDE23F9FF9F00C6F131 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		4F72437D23F8B9F500E8933E /* CharactersTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersTableView.swift; sourceTree = "<group>"; };
 		4F8FE1A323F83576001E0169 /* BreakingBadCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakingBadCharacter.swift; sourceTree = "<group>"; };
 		4F8FE1A923F8436A001E0169 /* CharactersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListViewController.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 			children = (
 				4F8FE1B323F84E2B001E0169 /* UIViewController+Extensions.swift */,
 				4F9C3EBB23F8CAB300F70723 /* UIView+Extensions.swift */,
+				4F06DCDE23F9FF9F00C6F131 /* UIImageView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				4F8FE1B223F843C0001E0169 /* CharactersListDependencyContainer.swift in Sources */,
 				4F8FE1AE23F84390001E0169 /* CharactersListViewModel.swift in Sources */,
 				4F8FE1B023F843A1001E0169 /* CharactersListModel.swift in Sources */,
+				4F06DCDF23F9FF9F00C6F131 /* UIImageView+Extensions.swift in Sources */,
 				4F9C3ECF23F9E60A00F70723 /* CharacterDetailsViewModel.swift in Sources */,
 				4F8FE1B623F84EDB001E0169 /* BaseNavigationController.swift in Sources */,
 				4F8FE1CB23F8AE50001E0169 /* CharacterTableViewCell.swift in Sources */,
