@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import AlamofireImage
+import Alamofire
+import SimpleLogger
 
 class CharacterTableViewCell: BaseTableViewCell {
     
@@ -14,6 +17,14 @@ class CharacterTableViewCell: BaseTableViewCell {
     @IBOutlet private weak var avatarImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var nicknameLabel: UILabel!
+    private var imageCacheManager: ImageCacheManager {
+        return ImageCacheManagerImpl.shared
+    }
+    
+    // MARK: - Initialization
+    deinit {
+        Logger.fatal.message()
+    }
     
     // MARK: - Life cycle
     override func awakeFromNib() {
@@ -22,8 +33,8 @@ class CharacterTableViewCell: BaseTableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
-        // TODO: stop any image requests
+        self.avatarImageView.af_cancelImageRequest()
+        self.avatarImageView.image = nil
     }
     
     override func draw(_ rect: CGRect) {
@@ -35,5 +46,25 @@ class CharacterTableViewCell: BaseTableViewCell {
     func configure(with character: BreakingBadCharacter) {
         self.nameLabel.text = character.name
         self.nicknameLabel.text = character.nickname
+        self.configureAvatarImageWithUrlString(character.imageUrlString)
+    }
+    
+    private func configureAvatarImageWithUrlString(_ urlString: String) {
+        guard let valid_url: URL = URL(string: urlString) else {
+            return
+        }
+        self.avatarImageView.contentMode = .scaleAspectFill
+        if let existingImage: UIImage = self.imageCacheManager.image(withIdentifier: urlString) {
+            self.avatarImageView.image = existingImage
+        }
+        else {
+            self.avatarImageView
+                .af_setImage(withURL: valid_url)
+                { (dataResponse: DataResponse<UIImage>) in
+                    if let value: UIImage = dataResponse.result.value {
+                        self.imageCacheManager.add(value, withIdentifier: urlString)
+                    }
+            }
+        }
     }
 }
