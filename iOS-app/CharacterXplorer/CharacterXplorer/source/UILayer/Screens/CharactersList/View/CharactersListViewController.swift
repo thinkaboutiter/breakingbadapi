@@ -18,7 +18,7 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     
     // MARK: - Properties
     private let viewModel: CharactersListViewModel
-    @IBOutlet private weak var testLabel: UILabel!
+    @IBOutlet private weak var charactersTableView: CharactersTableView!
     
     // MARK: - Initialization
     @available(*, unavailable, message: "Creating this view controller with `init(coder:)` is unsupported in favor of initializer dependency injection.")
@@ -48,8 +48,95 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configure_ui()
+    }
+}
+
+// MARK: - UI configurations
+private extension CharactersListViewController {
+    
+    func configure_ui() {
+        self.configure_title(&self.title)
+        self.configure_charactersTableView(self.charactersTableView)
+    }
+    
+    func configure_title(_ title: inout String?) {
+        title = NSLocalizedString("CharactersListViewController.title.samples",
+                                  comment: AppConstants.LocalizedStringComment.screenTitle)
+    }
+    
+    func configure_charactersTableView(_ tableView: CharactersTableView) {
+        let identifier: String = "\(String(describing: CharacterTableViewCell.self))"
+        tableView.register(UINib(nibName: identifier, bundle: nil),
+                           forCellReuseIdentifier: identifier)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.insetsContentViewsToSafeArea = true
+    }
+}
+
+// MARK: - UITableViewDataSource protocol
+extension CharactersListViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int
+    {
+        let result: Int = self.viewModel.getCharactes().count
+        return result
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        guard let cell: CharacterTableViewCell = tableView
+            .dequeueReusableCell(withIdentifier: String(describing: CharacterTableViewCell.self),
+                                 for: indexPath) as? CharacterTableViewCell
+        else {
+            let message: String = "Unable to dequeue valid \(String(describing: CharacterTableViewCell.self))!"
+            Logger.error.message(message)
+            return UITableViewCell()
+        }
         
-        // Do any additional setup after loading the view.
-        self.testLabel.text = NSLocalizedString("CharactersListViewController.testLabel.text", comment: AppConstants.LocalizedStringComment.labelTitle)
+        do {
+            let character: BreakingBadCharacter = try self.viewModel.character(for: indexPath)
+            cell.configure(with: character)
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        }
+        catch let error as NSError {
+            Logger.error.message().object(error)
+            return UITableViewCell()
+        }
+    }
+}
+
+// MARK: - UITableViewDelegate protocol
+extension CharactersListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView,
+                   heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return Constants.cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath)
+    {
+        tableView.deselectRow(at: indexPath,
+                              animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   canEditRowAt indexPath: IndexPath) -> Bool
+    {
+        return false
+    }
+}
+
+// MARK: - Constants
+private extension CharactersListViewController {
+    
+    enum Constants {
+        static let cellHeight: CGFloat = 64.0
     }
 }

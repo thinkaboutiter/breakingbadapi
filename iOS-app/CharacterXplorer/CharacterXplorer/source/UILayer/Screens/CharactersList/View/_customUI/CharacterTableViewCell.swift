@@ -13,7 +13,7 @@ class CharacterTableViewCell: BaseTableViewCell {
     // MARK: - Properties
     @IBOutlet private weak var avatarImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var niknameLabel: UILabel!
+    @IBOutlet private weak var nicknameLabel: UILabel!
     
     // MARK: - Life cycle
     override func prepareForReuse() {
@@ -25,6 +25,6 @@ class CharacterTableViewCell: BaseTableViewCell {
     // MARK: - Configurations
     func configure(with character: BreakingBadCharacter) {
         self.nameLabel.text = character.name
-        self.niknameLabel.text = character.nickname
+        self.nicknameLabel.text = character.nickname
     }
 }

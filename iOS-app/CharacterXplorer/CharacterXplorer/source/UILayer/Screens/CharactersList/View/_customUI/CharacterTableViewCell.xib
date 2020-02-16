@@ -40,13 +40,13 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="YrS-f1-Da1" userLabel="info-stack-view">
                                         <rect key="frame" x="20" y="22.5" width="325" height="67"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="HIl-yC-Rgk" userLabel="name-label">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="HIl-yC-Rgk" userLabel="name-label">
                                                 <rect key="frame" x="0.0" y="0.0" width="325" height="33.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hxA-vF-tnu" userLabel="nickname-label">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hxA-vF-tnu" userLabel="nickname-label">
                                                 <rect key="frame" x="0.0" y="33.5" width="325" height="33.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                 <nil key="textColor"/>
@@ -76,9 +76,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="avatarImageView" destination="sCK-12-SBf" id="rQy-0u-6OG"/>
-                <outlet property="nameLabel" destination="HIl-yC-Rgk" id="tge-40-850"/>
+                <outlet property="nameLabel" destination="HIl-yC-Rgk" id="Czn-1S-QGr"/>
                 <outlet property="nicknameLabel" destination="hxA-vF-tnu" id="k05-HS-fms"/>
-                <outlet property="niknameLabel" destination="hxA-vF-tnu" id="6Jg-qK-qsL"/>
             </connections>
             <point key="canvasLocation" x="192.0289855072464" y="284.59821428571428"/>
         </tableViewCell>

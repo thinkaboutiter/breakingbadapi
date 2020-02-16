@@ -124,9 +124,9 @@
 		4F8FE1C523F8AD7F001E0169 /* _customUI */ = {
 			isa = PBXGroup;
 			children = (
+				4F72437D23F8B9F500E8933E /* CharactersTableView.swift */,
 				4F8FE1CA23F8AE50001E0169 /* CharacterTableViewCell.swift */,
 				4F8FE1CC23F8AE61001E0169 /* CharacterTableViewCell.xib */,
-				4F72437D23F8B9F500E8933E /* CharactersTableView.swift */,
 			);
 			path = _customUI;
 			sourceTree = "<group>";
