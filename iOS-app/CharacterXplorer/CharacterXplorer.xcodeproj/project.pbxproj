@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4F06DCDF23F9FF9F00C6F131 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F06DCDE23F9FF9F00C6F131 /* UIImageView+Extensions.swift */; };
 		4F06DCE823FB2F0800C6F131 /* BaseWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F06DCE723FB2F0800C6F131 /* BaseWebService.swift */; };
+		4F06DCEA23FB3EC700C6F131 /* CharactersWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F06DCE923FB3EC700C6F131 /* CharactersWebService.swift */; };
 		4F72437E23F8B9F500E8933E /* CharactersTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F72437D23F8B9F500E8933E /* CharactersTableView.swift */; };
 		4F8FE1A423F83576001E0169 /* BreakingBadCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1A323F83576001E0169 /* BreakingBadCharacter.swift */; };
 		4F8FE1AA23F8436A001E0169 /* CharactersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1A923F8436A001E0169 /* CharactersListViewController.swift */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		4F06DCDE23F9FF9F00C6F131 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		4F06DCE723FB2F0800C6F131 /* BaseWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWebService.swift; sourceTree = "<group>"; };
+		4F06DCE923FB3EC700C6F131 /* CharactersWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersWebService.swift; sourceTree = "<group>"; };
 		4F72437D23F8B9F500E8933E /* CharactersTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersTableView.swift; sourceTree = "<group>"; };
 		4F8FE1A323F83576001E0169 /* BreakingBadCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakingBadCharacter.swift; sourceTree = "<group>"; };
 		4F8FE1A923F8436A001E0169 /* CharactersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				4F06DCE623FB2EF200C6F131 /* _baseClass */,
+				4F06DCE923FB3EC700C6F131 /* CharactersWebService.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				4F06DCE823FB2F0800C6F131 /* BaseWebService.swift in Sources */,
 				4F8FE1B223F843C0001E0169 /* CharactersListDependencyContainer.swift in Sources */,
 				4F8FE1AE23F84390001E0169 /* CharactersListViewModel.swift in Sources */,
+				4F06DCEA23FB3EC700C6F131 /* CharactersWebService.swift in Sources */,
 				4F8FE1B023F843A1001E0169 /* CharactersListModel.swift in Sources */,
 				4F06DCDF23F9FF9F00C6F131 /* UIImageView+Extensions.swift in Sources */,
 				4F9C3ECF23F9E60A00F70723 /* CharacterDetailsViewModel.swift in Sources */,

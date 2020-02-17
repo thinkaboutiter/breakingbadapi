@@ -57,6 +57,16 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configure_ui()
+        self.testWebService()
+    }
+    
+    private func testWebService() {
+        let ws: CharactersWebService = CharactersWebService()
+        ws.fetch(success: { (entities: BreakingBadCharacterWebEntities) in
+            Logger.debug.message().object(entities)
+        }) { (error: NSError) in
+            Logger.error.message().object(error)
+        }
     }
 }
 
