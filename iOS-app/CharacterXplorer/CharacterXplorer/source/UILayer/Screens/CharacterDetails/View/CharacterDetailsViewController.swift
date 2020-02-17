@@ -18,9 +18,8 @@ class CharacterDetailsViewController: BaseViewController, CharacterDetailsViewMo
     
     // MARK: - Properties
     private let viewModel: CharacterDetailsViewModel
-    private var imageCacheManager: ImageCacheManager {
-        return ImageCacheManagerImpl.shared
-    }
+    private let imageCache: ImageCacheManager
+
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nicknameLabel: UILabel!
@@ -44,8 +43,11 @@ class CharacterDetailsViewController: BaseViewController, CharacterDetailsViewMo
         fatalError("Creating this view controller with `init(nibName:bundle:)` is unsupported in favor of dependency injection initializer.")
     }
     
-    init(viewModel: CharacterDetailsViewModel) {
+    init(viewModel: CharacterDetailsViewModel,
+         imageCache: ImageCacheManager)
+    {
         self.viewModel = viewModel
+        self.imageCache = imageCache
         super.init(nibName: String(describing: CharacterDetailsViewController.self),
                    bundle: nil)
         self.viewModel.setViewModelConsumer(self)
@@ -71,7 +73,7 @@ private extension CharacterDetailsViewController {
     
     func configure_ui(with character: BreakingBadCharacter) {
         self.avatarImageView.configure(with: character.imageUrlString,
-                                       using: self.imageCacheManager)
+                                       using: self.imageCache)
         self.nameLabel.text = character.name
         self.nicknameLabel.text = "(\(character.nickname.uppercased()))"
         let occupationTitle: String =

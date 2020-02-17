@@ -9,7 +9,9 @@
 import Foundation
 import SimpleLogger
 
-protocol CharactersListDependencyContainer: AnyObject {}
+protocol CharactersListDependencyContainer: AnyObject {
+    var imageCache: ImageCacheManager { get }
+}
 
 typealias CharacterDetailsViewControllerFactoryProvider = (BreakingBadCharacter) -> CharacterDetailsViewControllerFactory
 
@@ -27,7 +29,6 @@ class CharactersListDependencyContainerImpl: CharactersListDependencyContainer, 
     
     // MARK: - Initialization
     init(parent: RootDependencyContainer) {
-        // setup
         self.parent = parent
         Logger.success.message()
     }
@@ -36,11 +37,17 @@ class CharactersListDependencyContainerImpl: CharactersListDependencyContainer, 
         Logger.fatal.message()
     }
     
+    // MARK: - CharactersListDependencyContainer
+    var imageCache: ImageCacheManager {
+        return self.parent.imageCache
+    }
+    
     // MARK: - CharactersListViewControllerFactory protocol
     func makeCharactersListViewController() -> CharactersListViewController {
         let vm: CharactersListViewModel = self.makeCharactersListViewModel()
         let vc: CharactersListViewController = CharactersListViewController(viewModel: vm,
-                                                                            provider: self.provider)
+                                                                            provider: self.provider,
+                                                                            imageCache: self.imageCache)
         return vc
     }
     

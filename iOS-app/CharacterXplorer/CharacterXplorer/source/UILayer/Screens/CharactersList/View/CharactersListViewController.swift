@@ -18,8 +18,9 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     
     // MARK: - Properties
     private let viewModel: CharactersListViewModel
-    @IBOutlet private weak var charactersTableView: CharactersTableView!
     private let provideCharacterDetailsViewControllerFactoryWith: CharacterDetailsViewControllerFactoryProvider
+    private let imageCache: ImageCacheManager
+    @IBOutlet private weak var charactersTableView: CharactersTableView!
     
     // MARK: - Initialization
     @available(*, unavailable, message: "Creating this view controller with `init(coder:)` is unsupported in favor of initializer dependency injection.")
@@ -35,10 +36,12 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     }
     
     init(viewModel: CharactersListViewModel,
-         provider: @escaping CharacterDetailsViewControllerFactoryProvider)
+         provider: @escaping CharacterDetailsViewControllerFactoryProvider,
+         imageCache: ImageCacheManager)
     {
         self.viewModel = viewModel
         self.provideCharacterDetailsViewControllerFactoryWith = provider
+        self.imageCache = imageCache
         super.init(nibName: String(describing: CharactersListViewController.self), bundle: nil)
         self.viewModel.setViewModelConsumer(self)
         Logger.success.message()
@@ -99,18 +102,18 @@ extension CharactersListViewController: UITableViewDataSource {
         else {
             let message: String = "Unable to dequeue valid \(String(describing: CharacterTableViewCell.self))!"
             Logger.error.message(message)
-            return UITableViewCell()
+            assert(false, message)
         }
         
         do {
             let character: BreakingBadCharacter = try self.viewModel.character(for: indexPath)
-            cell.configure(with: character)
+            cell.configure(with: character, imageCache: self.imageCache)
             cell.accessoryType = .disclosureIndicator
             return cell
         }
         catch let error as NSError {
             Logger.error.message().object(error)
-            return UITableViewCell()
+            assert(false, error.localizedDescription)
         }
     }
 }
@@ -129,7 +132,8 @@ extension CharactersListViewController: UITableViewDelegate {
     {
         do {
             let character: BreakingBadCharacter = try self.viewModel.character(for: indexPath)
-            let factory: CharacterDetailsViewControllerFactory = self.provideCharacterDetailsViewControllerFactoryWith(character)
+            let factory: CharacterDetailsViewControllerFactory =
+                self.provideCharacterDetailsViewControllerFactoryWith(character)
             let vc: CharacterDetailsViewController = factory.makeCharacterDetailsViewController()
             self.navigationController?.pushViewController(vc,
                                                           animated: true)

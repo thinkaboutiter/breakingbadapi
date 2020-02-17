@@ -9,7 +9,9 @@
 import Foundation
 import SimpleLogger
 
-protocol CharacterDetailsDependencyContainer: AnyObject {}
+protocol CharacterDetailsDependencyContainer: AnyObject {
+    var imageCache: ImageCacheManager { get }
+}
 
 class CharacterDetailsDependencyContainerImpl: CharacterDetailsDependencyContainer, CharacterDetailsViewControllerFactory {
     
@@ -19,7 +21,8 @@ class CharacterDetailsDependencyContainerImpl: CharacterDetailsDependencyContain
     
     // MARK: - Initialization
     init(parent: CharactersListDependencyContainer,
-         characterProvider provider: @escaping () -> BreakingBadCharacter) {
+         characterProvider provider: @escaping () -> BreakingBadCharacter)
+    {
         self.parent = parent
         self.getCharacter = provider
         Logger.success.message()
@@ -29,10 +32,16 @@ class CharacterDetailsDependencyContainerImpl: CharacterDetailsDependencyContain
         Logger.fatal.message()
     }
     
+    // MARK: - CharacterDetailsDependencyContainer protocol
+    var imageCache: ImageCacheManager {
+        return self.parent.imageCache
+    }
+    
     // MARK: - CharacterDetailsViewControllerFactory protocol
     func makeCharacterDetailsViewController() -> CharacterDetailsViewController {
         let vm: CharacterDetailsViewModel = self.makeCharacterDetailsViewModel()
-        let vc: CharacterDetailsViewController = CharacterDetailsViewController(viewModel: vm)
+        let vc: CharacterDetailsViewController = CharacterDetailsViewController(viewModel: vm,
+                                                                                imageCache: self.imageCache)
         return vc
     }
     
