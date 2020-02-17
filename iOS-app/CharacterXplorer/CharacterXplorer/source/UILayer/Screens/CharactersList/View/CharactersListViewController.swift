@@ -19,6 +19,7 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     // MARK: - Properties
     private let viewModel: CharactersListViewModel
     @IBOutlet private weak var charactersTableView: CharactersTableView!
+    private let provideCharacterDetailsViewControllerFactoryWith: CharacterDetailsViewControllerFactoryProvider
     
     // MARK: - Initialization
     @available(*, unavailable, message: "Creating this view controller with `init(coder:)` is unsupported in favor of initializer dependency injection.")
@@ -33,8 +34,11 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
         fatalError("Creating this view controller with `init(nibName:bundle:)` is unsupported in favor of dependency injection initializer.")
     }
     
-    init(viewModel: CharactersListViewModel) {
+    init(viewModel: CharactersListViewModel,
+         provider: @escaping CharacterDetailsViewControllerFactoryProvider)
+    {
         self.viewModel = viewModel
+        self.provideCharacterDetailsViewControllerFactoryWith = provider
         super.init(nibName: String(describing: CharactersListViewController.self), bundle: nil)
         self.viewModel.setViewModelConsumer(self)
         Logger.success.message()
@@ -123,6 +127,16 @@ extension CharactersListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath)
     {
+        do {
+            let character: BreakingBadCharacter = try self.viewModel.character(for: indexPath)
+            let factory: CharacterDetailsViewControllerFactory = self.provideCharacterDetailsViewControllerFactoryWith(character)
+            let vc: CharacterDetailsViewController = factory.makeCharacterDetailsViewController()
+            self.navigationController?.pushViewController(vc,
+                                                          animated: true)
+        }
+        catch {
+            Logger.error.message().object(error as NSError)
+        }
         tableView.deselectRow(at: indexPath,
                               animated: true)
     }

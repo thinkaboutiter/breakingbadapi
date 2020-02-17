@@ -11,10 +11,19 @@ import SimpleLogger
 
 protocol CharactersListDependencyContainer: AnyObject {}
 
+typealias CharacterDetailsViewControllerFactoryProvider = (BreakingBadCharacter) -> CharacterDetailsViewControllerFactory
+
 class CharactersListDependencyContainerImpl: CharactersListDependencyContainer, CharactersListViewControllerFactory {
     
     // MARK: - Properties
     private let parent: RootDependencyContainer
+    private lazy var provider: CharacterDetailsViewControllerFactoryProvider = { character in
+        let factory: CharacterDetailsViewControllerFactory =
+            CharacterDetailsDependencyContainerImpl(parent: self) { () -> BreakingBadCharacter in
+                return character
+        }
+        return factory
+    }
     
     // MARK: - Initialization
     init(parent: RootDependencyContainer) {
@@ -30,7 +39,8 @@ class CharactersListDependencyContainerImpl: CharactersListDependencyContainer, 
     // MARK: - CharactersListViewControllerFactory protocol
     func makeCharactersListViewController() -> CharactersListViewController {
         let vm: CharactersListViewModel = self.makeCharactersListViewModel()
-        let vc: CharactersListViewController = CharactersListViewController(viewModel: vm)
+        let vc: CharactersListViewController = CharactersListViewController(viewModel: vm,
+                                                                            provider: self.provider)
         return vc
     }
     
