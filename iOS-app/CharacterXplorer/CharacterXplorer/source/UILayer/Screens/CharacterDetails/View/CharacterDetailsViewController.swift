@@ -73,22 +73,22 @@ private extension CharacterDetailsViewController {
         self.avatarImageView.configure(with: character.imageUrlString,
                                        using: self.imageCacheManager)
         self.nameLabel.text = character.name
-        self.nicknameLabel.text = character.nickname
+        self.nicknameLabel.text = "(\(character.nickname.uppercased()))"
         let occupationTitle: String =
             NSLocalizedString("CharacterDetailsViewController.occupationTitle.occupation",
                               comment: AppConstants.LocalizedStringComment.labelTitle)
-        self.occupationTitleLabel.text = "\(occupationTitle):"
+        self.occupationTitleLabel.text = "\(occupationTitle.uppercased()):"
         self.occupationLabel.text = character.occupation
             .joined(separator: ", ")
         let statusTitle: String =
             NSLocalizedString("CharacterDetailsViewController.statusTitle.status",
                               comment: AppConstants.LocalizedStringComment.labelTitle)
-        self.statusTitleLabel.text = "\(statusTitle):"
+        self.statusTitleLabel.text = "\(statusTitle.uppercased()):"
         self.statusLabel.text = character.status
         let seasonAppearanceTitle: String =
             NSLocalizedString("CharacterDetailsViewController.seasonAppearanceTitle.season-appearance",
                               comment: AppConstants.LocalizedStringComment.labelTitle)
-        self.seasonAppearanceTitleLabel.text = "\(seasonAppearanceTitle):"
+        self.seasonAppearanceTitleLabel.text = "\(seasonAppearanceTitle.uppercased()):"
         self.seasonAppearanceLabel.text = character.seasonAppearance
             .map() { "\($0)" }
             .joined(separator: ", ")
