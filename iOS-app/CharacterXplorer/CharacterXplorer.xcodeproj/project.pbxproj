@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4F06DCDF23F9FF9F00C6F131 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F06DCDE23F9FF9F00C6F131 /* UIImageView+Extensions.swift */; };
+		4F06DCE823FB2F0800C6F131 /* BaseWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F06DCE723FB2F0800C6F131 /* BaseWebService.swift */; };
 		4F72437E23F8B9F500E8933E /* CharactersTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F72437D23F8B9F500E8933E /* CharactersTableView.swift */; };
 		4F8FE1A423F83576001E0169 /* BreakingBadCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1A323F83576001E0169 /* BreakingBadCharacter.swift */; };
 		4F8FE1AA23F8436A001E0169 /* CharactersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1A923F8436A001E0169 /* CharactersListViewController.swift */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		4F06DCDE23F9FF9F00C6F131 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
+		4F06DCE723FB2F0800C6F131 /* BaseWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWebService.swift; sourceTree = "<group>"; };
 		4F72437D23F8B9F500E8933E /* CharactersTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersTableView.swift; sourceTree = "<group>"; };
 		4F8FE1A323F83576001E0169 /* BreakingBadCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakingBadCharacter.swift; sourceTree = "<group>"; };
 		4F8FE1A923F8436A001E0169 /* CharactersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F06DCE523FB2EE000C6F131 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				4F06DCE623FB2EF200C6F131 /* _baseClass */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		4F06DCE623FB2EF200C6F131 /* _baseClass */ = {
+			isa = PBXGroup;
+			children = (
+				4F06DCE723FB2F0800C6F131 /* BaseWebService.swift */,
+			);
+			path = _baseClass;
+			sourceTree = "<group>";
+		};
 		4F8FE1A523F842E6001E0169 /* CharactersList */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +234,7 @@
 			children = (
 				4FAC0A8C23F7FA8500B1FB76 /* AppDelegate.swift */,
 				4FAC0A8D23F7FA8500B1FB76 /* DataLayer */,
+				4F06DCE523FB2EE000C6F131 /* Networking */,
 				4FAC0A8A23F7FA8500B1FB76 /* Extensions */,
 				4FAC0A8923F7FA8500B1FB76 /* Managers */,
 				4FAC0A9823F7FA8500B1FB76 /* SupportFiles */,
@@ -441,6 +460,7 @@
 				4FAC0AA023F7FF7A00B1FB76 /* RootViewController.swift in Sources */,
 				4F8FE1B423F84E2B001E0169 /* UIViewController+Extensions.swift in Sources */,
 				4F8FE1AA23F8436A001E0169 /* CharactersListViewController.swift in Sources */,
+				4F06DCE823FB2F0800C6F131 /* BaseWebService.swift in Sources */,
 				4F8FE1B223F843C0001E0169 /* CharactersListDependencyContainer.swift in Sources */,
 				4F8FE1AE23F84390001E0169 /* CharactersListViewModel.swift in Sources */,
 				4F8FE1B023F843A1001E0169 /* CharactersListModel.swift in Sources */,
