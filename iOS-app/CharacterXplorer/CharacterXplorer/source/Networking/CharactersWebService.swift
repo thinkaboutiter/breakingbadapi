@@ -7,24 +7,45 @@
 //
 
 import Foundation
+import SimpleLogger
 import Alamofire
 
 typealias BreakingBadCharacterWebEntities = [BreakingBadCharacterWebEntity]
 
 class CharactersWebService: BaseWebService<BreakingBadCharacterWebEntities> {
     
+    // MARK: - Properties
+    private var nextPage: Int = 0
+    
     // MARK: - Initialization
     init() {
+        Logger.success.message()
         super.init(endpoint: WebServiceConstants.Endpoint.characters)
+    }
+    
+    deinit {
+        Logger.fatal.message()
     }
     
     // MARK: - WebService protocol
     override func requestParameters() -> Parameters? {
+        let offset: Int = self.nextPage * Constants.resultsPerPage
         let result: Parameters = [
             Constants.ParameterKey.limit: Constants.resultsPerPage,
-            Constants.ParameterKey.offset: Constants.initialOffset
+            Constants.ParameterKey.offset: offset
         ]
         return result
+    }
+    
+    override func fetch(success: @escaping (BreakingBadCharacterWebEntities) -> Void,
+                        failure: @escaping (NSError) -> Void)
+    {
+        super.fetch(success: { (entities) in
+            Logger.success.message("fetched page=\(self.nextPage)")
+            self.nextPage += 1
+            success(entities)
+        },
+                    failure: failure)
     }
 }
 
@@ -37,6 +58,5 @@ private extension CharactersWebService {
         }
         
         static let resultsPerPage: Int = 10
-        static let initialOffset: Int = 0
     }
 }
