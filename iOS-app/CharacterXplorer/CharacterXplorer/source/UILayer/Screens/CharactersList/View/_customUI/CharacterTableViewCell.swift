@@ -45,7 +45,7 @@ class CharacterTableViewCell: BaseTableViewCell {
     // MARK: - Configurations
     func configure(with character: BreakingBadCharacter) {
         self.nameLabel.text = character.name
-        self.nicknameLabel.text = character.nickname
+        self.nicknameLabel.text = "(\(character.nickname.uppercased()))"
         self.avatarImageView.configure(with: character.imageUrlString,
                                        using: self.imageCacheManager)
     }

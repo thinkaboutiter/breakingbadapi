@@ -79,7 +79,7 @@ private extension CharacterDetailsViewController {
                               comment: AppConstants.LocalizedStringComment.labelTitle)
         self.occupationTitleLabel.text = "\(occupationTitle.uppercased()):"
         self.occupationLabel.text = character.occupation
-            .joined(separator: ", ")
+            .joined(separator: ",\n")
         let statusTitle: String =
             NSLocalizedString("CharacterDetailsViewController.statusTitle.status",
                               comment: AppConstants.LocalizedStringComment.labelTitle)
