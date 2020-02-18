@@ -42,7 +42,11 @@ class CharactersWebService: BaseWebService<BreakingBadCharacterWebEntities> {
     {
         super.fetch(success: { (entities) in
             Logger.success.message("fetched page=\(self.nextPage)")
-            self.nextPage += 1
+            if !entities.isEmpty
+                && entities.count == Constants.resultsPerPage
+            {
+                self.nextPage += 1
+            }
             success(entities)
         },
                     failure: failure)
