@@ -67,7 +67,7 @@ class CharactersRepositoryImpl: CharacterRespository {
         }
         
         defer {
-            let message: String = "Consuming \(result.count) \(String(describing: BreakingBadCharacter.self))-s"
+            let message: String = "Flushed \(result.count) \(String(describing: BreakingBadCharacter.self))-s"
             Logger.debug.message(message)
             self.clearCache()
         }
