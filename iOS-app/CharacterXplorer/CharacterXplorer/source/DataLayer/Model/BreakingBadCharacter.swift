@@ -18,7 +18,7 @@ protocol BreakingBadCharacter {
     var occupation: [String] { get }
 }
 
-struct BreakingBadCharacterAppEntity: BreakingBadCharacter {
+struct BreakingBadCharacterAppEntity: BreakingBadCharacter, Hashable {
     
     // MARK: - Properties
     let charID: Int
