@@ -15,7 +15,7 @@ protocol CharacterRespositoryConsumer: AnyObject {
 
 protocol CharacterRespository: AnyObject {
     func consumeCharacters() -> [BreakingBadCharacter]
-    func setConsumer(_ newValue: CharacterRespositoryConsumer)
+    func setRepositoryConsumer(_ newValue: CharacterRespositoryConsumer)
     func fetchCharacters()
     func reset()
 }
@@ -26,6 +26,9 @@ class CharactersRepositoryImpl: CharacterRespository {
     private let webService: CharactersWebService
     private weak var consumer: CharacterRespositoryConsumer!
     private var cache: NSMutableOrderedSet = []
+    private func clearCache() {
+        self.cache.removeAllObjects()
+    }
     
     // MARK: - Initialization
     init(webService: CharactersWebService) {
@@ -45,13 +48,15 @@ class CharactersRepositoryImpl: CharacterRespository {
             }
             return valid_entity
         }
-        let message: String = "Consuming \(result.count) \(String(describing: BreakingBadCharacter.self))-s"
-        Logger.debug.message(message)
-        self.cache.removeAllObjects()
+        defer {
+            let message: String = "Consuming \(result.count) \(String(describing: BreakingBadCharacter.self))-s"
+            Logger.debug.message(message)
+            self.clearCache()
+        }
         return result
     }
     
-    func setConsumer(_ newValue: CharacterRespositoryConsumer) {
+    func setRepositoryConsumer(_ newValue: CharacterRespositoryConsumer) {
         self.consumer = newValue
     }
     
@@ -67,6 +72,6 @@ class CharactersRepositoryImpl: CharacterRespository {
     
     func reset() {
         self.webService.resetCursor()
-        self.cache.removeAllObjects()
-    } 
+        self.clearCache()
+    }
 }
