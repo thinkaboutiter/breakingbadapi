@@ -52,22 +52,15 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     }
     
     // MARK: - CharactersListViewModelConsumer protocol
+    func loadCharacters(via viewModel: CharactersListViewModel) {
+        self.charactersTableView.reloadData()
+    }
     
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configure_ui()
-        self.testWebService()
-    }
-    
-    private func testWebService() {
-        let cursor: CharactersWebService.Cursor = CharactersWebService.Cursor(resultsPerPage: CharactersWebService.Constants.resultsPerPage)
-        let ws: CharactersWebService = CharactersWebService(cursor: cursor)
-        ws.fetch(success: { (entities: [BreakingBadCharacterWebEntity]) in
-            Logger.debug.message().object(entities)
-        }) { (error: NSError) in
-            Logger.error.message().object(error)
-        }
+        self.viewModel.fetchCharacters()
     }
 }
 

@@ -11,11 +11,13 @@ import SimpleLogger
 
 /// APIs for `View` to expose to `ViewModel`
 protocol CharactersListViewModelConsumer: AnyObject {
+    func loadCharacters(via viewModel: CharactersListViewModel)
 }
 
 /// APIs for `ViewModel` to expose to `View`
 protocol CharactersListViewModel: AnyObject {
     func setViewModelConsumer(_ newValue: CharactersListViewModelConsumer)
+    func fetchCharacters()
     func getCharactes() -> [BreakingBadCharacter]
     func character(for indexPath: IndexPath) throws -> BreakingBadCharacter
 }
@@ -47,6 +49,10 @@ class CharactersListViewModelImpl: CharactersListViewModel, CharactersListModelC
         self.viewModelConsumer = newValue
     }
     
+    func fetchCharacters() {
+        self.repository.fetchCharacters()
+    }
+    
     func getCharactes() -> [BreakingBadCharacter] {
         return self.model.characters()
     }
@@ -71,13 +77,17 @@ class CharactersListViewModelImpl: CharactersListViewModel, CharactersListModelC
     }
     
     // MARK: - CharactersListModelConsumer protocol
+    func didPersistCharacters(on model: CharactersListModel) {
+        self.viewModelConsumer.loadCharacters(via: self)
+    }
 }
 
 // MARK: - CharacterRespositoryConsumer protocol
 extension CharactersListViewModelImpl: CharacterRespositoryConsumer {
     
     func didFetchCharacters(on repository: CharacterRespository) {
-        // TODO: get characters from repository and presist them in the model
+        let characters: [BreakingBadCharacter] = repository.flushCharacters()
+        self.model.addCharacters(characters)
     }
 }
 
