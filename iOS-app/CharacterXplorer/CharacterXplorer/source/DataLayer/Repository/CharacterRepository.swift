@@ -14,7 +14,7 @@ protocol CharacterRespositoryConsumer: AnyObject {
 }
 
 protocol CharacterRespository: AnyObject {
-    func consumeCharacters() -> [BreakingBadCharacter]
+    func flushCharacters() -> [BreakingBadCharacter]
     func setRepositoryConsumer(_ newValue: CharacterRespositoryConsumer)
     func fetchCharacters()
     func reset()
@@ -25,9 +25,20 @@ class CharactersRepositoryImpl: CharacterRespository {
     // MARK: - Properties
     private let webService: CharactersWebService
     private weak var consumer: CharacterRespositoryConsumer!
+    private let concurrentCacheQueue = DispatchQueue(label: Constants.concurrentQueueLabel,
+                                                     qos: .default,
+                                                     attributes: .concurrent)
     private var cache: NSMutableOrderedSet = []
     private func clearCache() {
-        self.cache.removeAllObjects()
+        self.concurrentCacheQueue
+            .async(qos: .default,
+                   flags: .barrier)
+            { [weak self] in
+                guard let valid_self = self else {
+                    return
+                }
+                valid_self.cache.removeAllObjects()
+        }
     }
     
     // MARK: - Initialization
@@ -41,13 +52,20 @@ class CharactersRepositoryImpl: CharacterRespository {
     }
     
     // MARK: - CharacterRespository
-    func consumeCharacters() -> [BreakingBadCharacter] {
-        let result: [BreakingBadCharacter] = self.cache.compactMap { (element: Any) -> BreakingBadCharacter? in
-            guard let valid_entity: BreakingBadCharacterAppEntity = element as? BreakingBadCharacterAppEntity else {
-                return nil
+    func flushCharacters() -> [BreakingBadCharacter] {
+        var result: [BreakingBadCharacter]!
+        self.concurrentCacheQueue.sync { [weak self] in
+            guard let valid_self = self else {
+                return
             }
-            return valid_entity
+            result = valid_self.cache.compactMap { (element: Any) -> BreakingBadCharacter? in
+                guard let valid_entity: BreakingBadCharacterAppEntity = element as? BreakingBadCharacterAppEntity else {
+                    return nil
+                }
+                return valid_entity
+            }
         }
+        
         defer {
             let message: String = "Consuming \(result.count) \(String(describing: BreakingBadCharacter.self))-s"
             Logger.debug.message(message)
@@ -63,15 +81,39 @@ class CharactersRepositoryImpl: CharacterRespository {
     func fetchCharacters() {
         self.webService.fetch(success: { (entities: [BreakingBadCharacterWebEntity]) in
             let characters: [BreakingBadCharacterAppEntity] = entities.map() { BreakingBadCharacterAppEntity(webEntity: $0) }
-            self.cache.addObjects(from: characters)
-            self.consumer.didFetchCharacters(on: self)
+            self.consume(characters)
         }) { (error: NSError) in
             Logger.error.message().object(error)
+        }
+    }
+    
+    private func consume(_ characters: [BreakingBadCharacterAppEntity]) {
+        self.concurrentCacheQueue
+            .async(qos: .default,
+                   flags: .barrier)
+            { [weak self] in
+                guard let valid_self = self else {
+                    return
+                }
+                valid_self.cache.addObjects(from: characters)
+                DispatchQueue.main.async { [weak self] in
+                    guard let valid_self = self else {
+                        return
+                    }
+                    valid_self.consumer.didFetchCharacters(on: valid_self)
+                }
         }
     }
     
     func reset() {
         self.webService.resetCursor()
         self.clearCache()
+    }
+}
+
+// MARK: - Constants
+private extension CharactersRepositoryImpl {
+    enum Constants {
+        static let concurrentQueueLabel: String = "\(AppConstants.projectName)-\(String(describing: CharactersRepositoryImpl.self))-concurrent-queue"
     }
 }
