@@ -61,7 +61,8 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     }
     
     private func testWebService() {
-        let ws: CharactersWebService = CharactersWebService()
+        let cursor: CharactersWebService.Cursor = CharactersWebService.Cursor(resultsPerPage: CharactersWebService.Constants.resultsPerPage)
+        let ws: CharactersWebService = CharactersWebService(cursor: cursor)
         ws.fetch(success: { (entities: BreakingBadCharacterWebEntities) in
             Logger.debug.message().object(entities)
         }) { (error: NSError) in

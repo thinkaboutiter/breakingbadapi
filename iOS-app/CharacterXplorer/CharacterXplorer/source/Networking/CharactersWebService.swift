@@ -15,15 +15,16 @@ typealias BreakingBadCharacterWebEntities = [BreakingBadCharacterWebEntity]
 class CharactersWebService: BaseWebService<BreakingBadCharacterWebEntities> {
     
     // MARK: - Properties
-    private var cursor: Cursor = Cursor(resultsPerPage: Constants.resultsPerPage)
+    private var cursor: Cursor
     func resetCursor() {
         self.cursor.reset()
     }
     
     // MARK: - Initialization
-    init() {
-        Logger.success.message()
+    required init(cursor: Cursor) {
+        self.cursor = cursor
         super.init(endpoint: WebServiceConstants.Endpoint.characters)
+        Logger.success.message()
     }
     
     deinit {
@@ -57,10 +58,11 @@ class CharactersWebService: BaseWebService<BreakingBadCharacterWebEntities> {
     }
 }
 
-private extension CharactersWebService {
+// MARK: - Constants
+extension CharactersWebService {
     
     enum Constants {
-        enum ParameterKey {
+        fileprivate enum ParameterKey {
             static let limit: String = "limit"
             static let offset: String = "offset"
         }
@@ -69,35 +71,39 @@ private extension CharactersWebService {
     }
 }
 
-fileprivate struct Cursor {
+// MARK: - Cursor
+extension CharactersWebService {
     
-    // MARK: - Properties
-    let resultsPerPage: Int
-    private(set) var page = 0
-    private(set) var hasNext: Bool = true
-    var offset: Int {
-        return self.page * self.resultsPerPage
-    }
-    
-    // MARK: - Initialization
-    init(resultsPerPage: Int) {
-        self.resultsPerPage = resultsPerPage
-    }
-    
-    // MARK: - Business
-    mutating func reset() {
-        self.page = 0
-        self.hasNext = true
-    }
-    
-    mutating func update(withNumberOfResults count: Int) {
-        if count != 0
-            && count == self.resultsPerPage
-        {
-            self.page += 1
+    struct Cursor {
+        
+        // MARK: - Properties
+        let resultsPerPage: Int
+        private(set) var page = 0
+        private(set) var hasNext: Bool = true
+        var offset: Int {
+            return self.page * self.resultsPerPage
         }
-        else {
-            self.hasNext = false
+        
+        // MARK: - Initialization
+        init(resultsPerPage: Int) {
+            self.resultsPerPage = resultsPerPage
+        }
+        
+        // MARK: - Business
+        mutating func reset() {
+            self.page = 0
+            self.hasNext = true
+        }
+        
+        mutating func update(withNumberOfResults count: Int) {
+            if count != 0
+                && count == self.resultsPerPage
+            {
+                self.page += 1
+            }
+            else {
+                self.hasNext = false
+            }
         }
     }
 }
