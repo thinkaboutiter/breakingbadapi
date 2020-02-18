@@ -24,12 +24,17 @@ class CharactersListViewModelImpl: CharactersListViewModel, CharactersListModelC
     
     // MARK: - Properties
     private let model: CharactersListModel
+    private let repository: CharacterRespository
     private weak var viewModelConsumer: CharactersListViewModelConsumer!
     
     // MARK: - Initialization
-    required init(model: CharactersListModel) {
+    required init(model: CharactersListModel,
+                  repository: CharacterRespository)
+    {
         self.model = model
+        self.repository = repository
         self.model.setModelConsumer(self)
+        self.repository.setRepositoryConsumer(self)
         Logger.success.message()
     }
     
@@ -66,6 +71,14 @@ class CharactersListViewModelImpl: CharactersListViewModel, CharactersListModelC
     }
     
     // MARK: - CharactersListModelConsumer protocol
+}
+
+// MARK: - CharacterRespositoryConsumer protocol
+extension CharactersListViewModelImpl: CharacterRespositoryConsumer {
+    
+    func didFetchCharacters(on repository: CharacterRespository) {
+        // TODO: get characters from repository and presist them in the model
+    }
 }
 
 // MARK: - Internal Errors

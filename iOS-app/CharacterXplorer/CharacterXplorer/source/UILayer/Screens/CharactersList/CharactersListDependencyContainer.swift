@@ -53,7 +53,17 @@ class CharactersListDependencyContainerImpl: CharactersListDependencyContainer, 
     
     private func makeCharactersListViewModel() -> CharactersListViewModel {
         let model: CharactersListModel = CharactersListModelImpl()
-        let result: CharactersListViewModel = CharactersListViewModelImpl(model: model)
+        let ws: CharactersWebService = self.makeCharactersWebService()
+        let repository: CharacterRespository = CharactersRepositoryImpl(webService: ws)
+        let result: CharactersListViewModel = CharactersListViewModelImpl(model: model,
+                                                                          repository: repository)
+        return result
+    }
+    
+    private func makeCharactersWebService() -> CharactersWebService {
+        let cursor: CharactersWebService.Cursor =
+            CharactersWebService.Cursor(resultsPerPage: CharactersWebService.Constants.resultsPerPage)
+        let result: CharactersWebService = CharactersWebService(cursor: cursor)
         return result
     }
 }
