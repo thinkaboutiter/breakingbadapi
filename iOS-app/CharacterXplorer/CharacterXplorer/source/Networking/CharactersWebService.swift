@@ -10,9 +10,7 @@ import Foundation
 import SimpleLogger
 import Alamofire
 
-typealias BreakingBadCharacterWebEntities = [BreakingBadCharacterWebEntity]
-
-class CharactersWebService: BaseWebService<BreakingBadCharacterWebEntities> {
+class CharactersWebService: BaseWebService<[BreakingBadCharacterWebEntity]> {
     
     // MARK: - Properties
     private var cursor: Cursor
@@ -40,7 +38,7 @@ class CharactersWebService: BaseWebService<BreakingBadCharacterWebEntities> {
         return result
     }
     
-    override func fetch(success: @escaping (BreakingBadCharacterWebEntities) -> Void,
+    override func fetch(success: @escaping ([BreakingBadCharacterWebEntity]) -> Void,
                         failure: @escaping (NSError) -> Void)
     {
         guard self.cursor.hasNext else {
