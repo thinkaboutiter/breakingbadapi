@@ -15,7 +15,10 @@ typealias BreakingBadCharacterWebEntities = [BreakingBadCharacterWebEntity]
 class CharactersWebService: BaseWebService<BreakingBadCharacterWebEntities> {
     
     // MARK: - Properties
-    private var nextPage: Int = 0
+    private var cursor: Cursor = Cursor(resultsPerPage: Constants.resultsPerPage)
+    func resetCursor() {
+        self.cursor.reset()
+    }
     
     // MARK: - Initialization
     init() {
@@ -29,10 +32,9 @@ class CharactersWebService: BaseWebService<BreakingBadCharacterWebEntities> {
     
     // MARK: - WebService protocol
     override func requestParameters() -> Parameters? {
-        let offset: Int = self.nextPage * Constants.resultsPerPage
         let result: Parameters = [
-            Constants.ParameterKey.limit: Constants.resultsPerPage,
-            Constants.ParameterKey.offset: offset
+            Constants.ParameterKey.limit: self.cursor.resultsPerPage,
+            Constants.ParameterKey.offset: self.cursor.offset
         ]
         return result
     }
@@ -40,16 +42,18 @@ class CharactersWebService: BaseWebService<BreakingBadCharacterWebEntities> {
     override func fetch(success: @escaping (BreakingBadCharacterWebEntities) -> Void,
                         failure: @escaping (NSError) -> Void)
     {
-        super.fetch(success: { (entities) in
-            Logger.success.message("fetched page=\(self.nextPage)")
-            if !entities.isEmpty
-                && entities.count == Constants.resultsPerPage
-            {
-                self.nextPage += 1
-            }
-            success(entities)
+        guard self.cursor.hasNext else {
+            let message: String = "Rreached end of List."
+            Logger.warning.message(message)
+            return
+        }
+        super.fetch(
+            success: { (entities) in
+                Logger.success.message("fetched page=\(self.cursor.page)")
+                self.cursor.update(withNumberOfResults: entities.count)
+                success(entities)
         },
-                    failure: failure)
+            failure: failure)
     }
 }
 
@@ -62,5 +66,38 @@ private extension CharactersWebService {
         }
         
         static let resultsPerPage: Int = 10
+    }
+}
+
+fileprivate struct Cursor {
+    
+    // MARK: - Properties
+    let resultsPerPage: Int
+    private(set) var page = 0
+    private(set) var hasNext: Bool = true
+    var offset: Int {
+        return self.page * self.resultsPerPage
+    }
+    
+    // MARK: - Initialization
+    init(resultsPerPage: Int) {
+        self.resultsPerPage = resultsPerPage
+    }
+    
+    // MARK: - Business
+    mutating func reset() {
+        self.page = 0
+        self.hasNext = true
+    }
+    
+    mutating func update(withNumberOfResults count: Int) {
+        if count != 0
+            && count == self.resultsPerPage
+        {
+            self.page += 1
+        }
+        else {
+            self.hasNext = false
+        }
     }
 }
