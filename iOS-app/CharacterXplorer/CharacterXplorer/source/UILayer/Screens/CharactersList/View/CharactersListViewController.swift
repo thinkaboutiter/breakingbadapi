@@ -132,6 +132,16 @@ extension CharactersListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView,
+                   willDisplay cell: UITableViewCell,
+                   forRowAt indexPath: IndexPath)
+    {
+        let count: Int = self.viewModel.getCharactes().count
+        if indexPath.row == (count - 1) {
+            self.viewModel.fetchCharacters()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath)
     {
         do {

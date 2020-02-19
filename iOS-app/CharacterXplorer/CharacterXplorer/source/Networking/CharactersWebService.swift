@@ -65,7 +65,7 @@ extension CharactersWebService {
             static let offset: String = "offset"
         }
         
-        static let resultsPerPage: Int = 10
+        static let resultsPerPage: Int = 20
     }
 }
 
