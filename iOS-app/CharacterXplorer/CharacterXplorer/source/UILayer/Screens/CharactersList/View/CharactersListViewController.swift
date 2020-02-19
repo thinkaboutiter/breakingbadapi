@@ -88,6 +88,7 @@ private extension CharactersListViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.insetsContentViewsToSafeArea = true
+        tableView.separatorStyle = .none
     }
     
     private func configure_refreshControl(_ refreshControl: UIRefreshControl) {

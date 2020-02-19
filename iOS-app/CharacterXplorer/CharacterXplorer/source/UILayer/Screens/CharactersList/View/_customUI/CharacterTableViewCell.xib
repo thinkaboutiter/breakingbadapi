@@ -15,6 +15,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="497" height="82"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hgb-u4-rZE" userLabel="separator-view">
+                        <rect key="frame" x="20" y="81" width="477" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="VbR-hw-Cz3"/>
+                        </constraints>
+                    </view>
                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UH7-aZ-Jmj" userLabel="content-stack-view">
                         <rect key="frame" x="8" y="8" width="481" height="66"/>
                         <subviews>
@@ -70,6 +77,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="UH7-aZ-Jmj" secondAttribute="bottom" constant="8" id="2BT-zu-CnF"/>
+                    <constraint firstAttribute="bottom" secondItem="hgb-u4-rZE" secondAttribute="bottom" id="OCN-WS-lFP"/>
+                    <constraint firstAttribute="trailing" secondItem="hgb-u4-rZE" secondAttribute="trailing" id="Uc4-DY-udg"/>
+                    <constraint firstItem="hgb-u4-rZE" firstAttribute="leading" secondItem="2ZP-1R-mSD" secondAttribute="leading" constant="20" symbolic="YES" id="Zon-Ow-eDh"/>
                     <constraint firstAttribute="trailing" secondItem="UH7-aZ-Jmj" secondAttribute="trailing" constant="8" id="oCs-lK-TUQ"/>
                     <constraint firstItem="UH7-aZ-Jmj" firstAttribute="top" secondItem="2ZP-1R-mSD" secondAttribute="top" constant="8" id="sMQ-TD-7dz"/>
                     <constraint firstItem="UH7-aZ-Jmj" firstAttribute="leading" secondItem="2ZP-1R-mSD" secondAttribute="leading" constant="8" id="yk7-zc-mho"/>
@@ -79,8 +89,9 @@
                 <outlet property="avatarImageView" destination="sCK-12-SBf" id="rQy-0u-6OG"/>
                 <outlet property="nameLabel" destination="HIl-yC-Rgk" id="Czn-1S-QGr"/>
                 <outlet property="nicknameLabel" destination="hxA-vF-tnu" id="k05-HS-fms"/>
+                <outlet property="separatorView" destination="hgb-u4-rZE" id="jLz-xu-hfP"/>
             </connections>
-            <point key="canvasLocation" x="135.50724637681159" y="215.95982142857142"/>
+            <point key="canvasLocation" x="135.50724637681159" y="215.625"/>
         </tableViewCell>
     </objects>
 </document>
