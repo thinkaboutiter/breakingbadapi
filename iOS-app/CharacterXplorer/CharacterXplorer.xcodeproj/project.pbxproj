@@ -21,7 +21,6 @@
 		4F8FE1B423F84E2B001E0169 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1B323F84E2B001E0169 /* UIViewController+Extensions.swift */; };
 		4F8FE1B623F84EDB001E0169 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1B523F84EDB001E0169 /* BaseNavigationController.swift */; };
 		4F8FE1BE23F893A0001E0169 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F8FE1BC23F8939F001E0169 /* Localizable.strings */; };
-		4F8FE1C223F89469001E0169 /* characters.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F8FE1C123F89469001E0169 /* characters.json */; };
 		4F8FE1C423F89C69001E0169 /* ErrorCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1C323F89C69001E0169 /* ErrorCreator.swift */; };
 		4F8FE1C723F8ADA8001E0169 /* BaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1C623F8ADA8001E0169 /* BaseTableView.swift */; };
 		4F8FE1C923F8ADCA001E0169 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1C823F8ADCA001E0169 /* BaseTableViewCell.swift */; };
@@ -61,7 +60,6 @@
 		4F8FE1B323F84E2B001E0169 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		4F8FE1B523F84EDB001E0169 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		4F8FE1BD23F8939F001E0169 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4F8FE1C123F89469001E0169 /* characters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = characters.json; sourceTree = "<group>"; };
 		4F8FE1C323F89C69001E0169 /* ErrorCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCreator.swift; sourceTree = "<group>"; };
 		4F8FE1C623F8ADA8001E0169 /* BaseTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableView.swift; sourceTree = "<group>"; };
 		4F8FE1C823F8ADCA001E0169 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
@@ -156,7 +154,6 @@
 		4F8FE1BB23F8939F001E0169 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				4F8FE1C123F89469001E0169 /* characters.json */,
 				4F8FE1BC23F8939F001E0169 /* Localizable.strings */,
 			);
 			path = resources;
@@ -429,7 +426,6 @@
 				4F9C3ECD23F9E5F500F70723 /* CharacterDetailsViewController.xib in Resources */,
 				4F8FE1AC23F84380001E0169 /* CharactersListViewController.xib in Resources */,
 				4FAC0A7D23F7F48600B1FB76 /* Assets.xcassets in Resources */,
-				4F8FE1C223F89469001E0169 /* characters.json in Resources */,
 				4FAC0AAE23F80C8B00B1FB76 /* LaunchScreen.storyboard in Resources */,
 				4F8FE1CD23F8AE61001E0169 /* CharacterTableViewCell.xib in Resources */,
 				4FAC0AAB23F8010B00B1FB76 /* RootViewController.xib in Resources */,
