@@ -20,6 +20,7 @@ protocol CharactersListViewModel: AnyObject {
     func fetchCharacters()
     func getCharactes() -> [BreakingBadCharacter]
     func character(for indexPath: IndexPath) throws -> BreakingBadCharacter
+    func refreshCharacters()
 }
 
 class CharactersListViewModelImpl: CharactersListViewModel, CharactersListModelConsumer {
@@ -74,6 +75,11 @@ class CharactersListViewModelImpl: CharactersListViewModel, CharactersListModelC
         }
         let result: BreakingBadCharacter = characters[index]
         return result
+    }
+    
+    func refreshCharacters() {
+        self.model.clearAllCharacters()
+        self.repository.refresh()
     }
     
     // MARK: - CharactersListModelConsumer protocol

@@ -21,6 +21,7 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     private let provideCharacterDetailsViewControllerFactoryWith: CharacterDetailsViewControllerFactoryProvider
     private let imageCache: ImageCacheManager
     @IBOutlet private weak var charactersTableView: CharactersTableView!
+    private var refreshControl: UIRefreshControl = UIRefreshControl()
     
     // MARK: - Initialization
     @available(*, unavailable, message: "Creating this view controller with `init(coder:)` is unsupported in favor of initializer dependency injection.")
@@ -70,10 +71,13 @@ private extension CharactersListViewController {
     func configure_ui() {
         self.configure_title(&self.title)
         self.configure_charactersTableView(self.charactersTableView)
+        self.configure_refreshControl(self.refreshControl)
+        self.charactersTableView.addSubview(self.refreshControl)
+
     }
     
     func configure_title(_ title: inout String?) {
-        title = NSLocalizedString("CharactersListViewController.title.samples",
+        title = NSLocalizedString("CharactersListViewController.title.characters",
                                   comment: AppConstants.LocalizedStringComment.screenTitle)
     }
     
@@ -84,6 +88,18 @@ private extension CharactersListViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.insetsContentViewsToSafeArea = true
+    }
+    
+    private func configure_refreshControl(_ refreshControl: UIRefreshControl) {
+        refreshControl.addTarget(self,
+                                 action: #selector(refresh(sender:)),
+                                 for: .valueChanged)
+    }
+    
+    @objc
+    private func refresh(sender: UIRefreshControl) {
+        sender.endRefreshing()
+        self.viewModel.refreshCharacters()
     }
 }
 

@@ -19,6 +19,7 @@ protocol CharactersListModel: AnyObject {
     func setModelConsumer(_ newValue: CharactersListModelConsumer)
     func addCharacters(_ collection: [BreakingBadCharacter])
     func characters() -> [BreakingBadCharacter]
+    func clearAllCharacters()
 }
 
 class CharactersListModelImpl: CharactersListModel {
@@ -76,6 +77,24 @@ class CharactersListModelImpl: CharactersListModel {
             }
         }
         return result
+    }
+    
+    func clearAllCharacters() {
+        self.concurrentCacheQueue
+            .async(qos: .default,
+                   flags: .barrier)
+            { [weak self] in
+                guard let valid_self = self else {
+                    return
+                }
+                valid_self.cache.removeAllObjects()
+                DispatchQueue.main.async { [weak self] in
+                    guard let valid_self = self else {
+                        return
+                    }
+                    valid_self.modelConsumer.didUpdateCharacters(on: valid_self)
+                }
+        }
     }
 }
 
