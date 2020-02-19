@@ -2,9 +2,10 @@
 "RootViewController.testLabel.text" = "Hello Root";
 
 /* CharactersListViewController */
-"CharactersListViewController.title.samples" = "Characters";
+"CharactersListViewController.title.characters" = "Characters";
 
 /* CharacterDetailsViewController */
 "CharacterDetailsViewController.occupationTitle.occupation" = "Occupation";
 "CharacterDetailsViewController.statusTitle.status" = "Status";
 "CharacterDetailsViewController.seasonAppearanceTitle.season-appearance" = "Season appearance";
+

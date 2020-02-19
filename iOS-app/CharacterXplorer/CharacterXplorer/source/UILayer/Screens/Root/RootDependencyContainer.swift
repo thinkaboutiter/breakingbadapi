@@ -9,7 +9,9 @@
 import Foundation
 import SimpleLogger
 
-protocol RootDependencyContainer: AnyObject {}
+protocol RootDependencyContainer: AnyObject {
+    var imageCache: ImageCacheManager { get }
+}
 
 class RootDependencyContainerImpl: RootDependencyContainer, RootViewControllerFactory {
     
@@ -20,6 +22,11 @@ class RootDependencyContainerImpl: RootDependencyContainer, RootViewControllerFa
     
     deinit {
         Logger.fatal.message()
+    }
+    
+    // MARK: - RootDependencyContainer protocol
+    var imageCache: ImageCacheManager {
+        return ImageCacheManagerImpl.shared
     }
     
     // MARK: - RootViewControllerFactory protocol

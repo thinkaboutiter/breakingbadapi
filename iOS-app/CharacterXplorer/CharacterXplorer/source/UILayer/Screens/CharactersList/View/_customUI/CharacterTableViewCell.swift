@@ -17,9 +17,7 @@ class CharacterTableViewCell: BaseTableViewCell {
     @IBOutlet private weak var avatarImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var nicknameLabel: UILabel!
-    private var imageCacheManager: ImageCacheManager {
-        return ImageCacheManagerImpl.shared
-    }
+    @IBOutlet private weak var separatorView: UIView!
     
     // MARK: - Initialization
     deinit {
@@ -29,6 +27,7 @@ class CharacterTableViewCell: BaseTableViewCell {
     // MARK: - Life cycle
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.configure_ui()
     }
     
     override func prepareForReuse() {
@@ -43,10 +42,16 @@ class CharacterTableViewCell: BaseTableViewCell {
     }
     
     // MARK: - Configurations
-    func configure(with character: BreakingBadCharacter) {
+    func configure(with character: BreakingBadCharacter,
+                   imageCache: ImageCacheManager)
+    {
         self.nameLabel.text = character.name
-        self.nicknameLabel.text = "(\(character.nickname.uppercased()))"
+        self.nicknameLabel.text = "(\(character.nickname))"
         self.avatarImageView.configure(with: character.imageUrlString,
-                                       using: self.imageCacheManager)
+                                       using: imageCache)
+    }
+    
+    private func configure_ui() {
+        self.separatorView.backgroundColor = UIColor.gray.withAlphaComponent(0.25)
     }
 }

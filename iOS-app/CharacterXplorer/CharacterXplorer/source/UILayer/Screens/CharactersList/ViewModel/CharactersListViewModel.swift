@@ -11,25 +11,33 @@ import SimpleLogger
 
 /// APIs for `View` to expose to `ViewModel`
 protocol CharactersListViewModelConsumer: AnyObject {
+    func reloadCharacters(via viewModel: CharactersListViewModel)
 }
 
 /// APIs for `ViewModel` to expose to `View`
 protocol CharactersListViewModel: AnyObject {
     func setViewModelConsumer(_ newValue: CharactersListViewModelConsumer)
+    func fetchCharacters()
     func getCharactes() -> [BreakingBadCharacter]
     func character(for indexPath: IndexPath) throws -> BreakingBadCharacter
+    func refreshCharacters()
 }
 
 class CharactersListViewModelImpl: CharactersListViewModel, CharactersListModelConsumer {
     
     // MARK: - Properties
     private let model: CharactersListModel
+    private let repository: CharacterRespository
     private weak var viewModelConsumer: CharactersListViewModelConsumer!
     
     // MARK: - Initialization
-    required init(model: CharactersListModel) {
+    required init(model: CharactersListModel,
+                  repository: CharacterRespository)
+    {
         self.model = model
+        self.repository = repository
         self.model.setModelConsumer(self)
+        self.repository.setRepositoryConsumer(self)
         Logger.success.message()
     }
     
@@ -40,6 +48,10 @@ class CharactersListViewModelImpl: CharactersListViewModel, CharactersListModelC
     // MARK: - CharactersListViewModel protocol
     func setViewModelConsumer(_ newValue: CharactersListViewModelConsumer) {
         self.viewModelConsumer = newValue
+    }
+    
+    func fetchCharacters() {
+        self.repository.fetchCharacters()
     }
     
     func getCharactes() -> [BreakingBadCharacter] {
@@ -65,7 +77,24 @@ class CharactersListViewModelImpl: CharactersListViewModel, CharactersListModelC
         return result
     }
     
+    func refreshCharacters() {
+        self.model.clearAllCharacters()
+        self.repository.refresh()
+    }
+    
     // MARK: - CharactersListModelConsumer protocol
+    func didUpdateCharacters(on model: CharactersListModel) {
+        self.viewModelConsumer.reloadCharacters(via: self)
+    }
+}
+
+// MARK: - CharacterRespositoryConsumer protocol
+extension CharactersListViewModelImpl: CharacterRespositoryConsumer {
+    
+    func didFetchCharacters(on repository: CharacterRespository) {
+        let characters: [BreakingBadCharacter] = repository.flushCharacters()
+        self.model.addCharacters(characters)
+    }
 }
 
 // MARK: - Internal Errors

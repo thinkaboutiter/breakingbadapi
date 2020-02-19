@@ -18,8 +18,10 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     
     // MARK: - Properties
     private let viewModel: CharactersListViewModel
-    @IBOutlet private weak var charactersTableView: CharactersTableView!
     private let provideCharacterDetailsViewControllerFactoryWith: CharacterDetailsViewControllerFactoryProvider
+    private let imageCache: ImageCacheManager
+    @IBOutlet private weak var charactersTableView: CharactersTableView!
+    private var refreshControl: UIRefreshControl = UIRefreshControl()
     
     // MARK: - Initialization
     @available(*, unavailable, message: "Creating this view controller with `init(coder:)` is unsupported in favor of initializer dependency injection.")
@@ -35,10 +37,12 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     }
     
     init(viewModel: CharactersListViewModel,
-         provider: @escaping CharacterDetailsViewControllerFactoryProvider)
+         provider: @escaping CharacterDetailsViewControllerFactoryProvider,
+         imageCache: ImageCacheManager)
     {
         self.viewModel = viewModel
         self.provideCharacterDetailsViewControllerFactoryWith = provider
+        self.imageCache = imageCache
         super.init(nibName: String(describing: CharactersListViewController.self), bundle: nil)
         self.viewModel.setViewModelConsumer(self)
         Logger.success.message()
@@ -49,11 +53,17 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     }
     
     // MARK: - CharactersListViewModelConsumer protocol
+    func reloadCharacters(via viewModel: CharactersListViewModel) {
+        self.refreshControl.endRefreshing()
+        self.charactersTableView.reloadData()
+    }
     
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configure_ui()
+        self.viewModel.fetchCharacters()
+        self.refreshControl.beginRefreshing()
     }
 }
 
@@ -63,10 +73,13 @@ private extension CharactersListViewController {
     func configure_ui() {
         self.configure_title(&self.title)
         self.configure_charactersTableView(self.charactersTableView)
+        self.configure_refreshControl(self.refreshControl)
+        self.charactersTableView.addSubview(self.refreshControl)
+
     }
     
     func configure_title(_ title: inout String?) {
-        title = NSLocalizedString("CharactersListViewController.title.samples",
+        title = NSLocalizedString("CharactersListViewController.title.characters",
                                   comment: AppConstants.LocalizedStringComment.screenTitle)
     }
     
@@ -77,6 +90,19 @@ private extension CharactersListViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.insetsContentViewsToSafeArea = true
+        tableView.separatorStyle = .none
+    }
+    
+    private func configure_refreshControl(_ refreshControl: UIRefreshControl) {
+        refreshControl.addTarget(self,
+                                 action: #selector(refresh(sender:)),
+                                 for: .valueChanged)
+    }
+    
+    @objc
+    private func refresh(sender: UIRefreshControl) {
+        sender.endRefreshing()
+        self.viewModel.refreshCharacters()
     }
 }
 
@@ -99,18 +125,18 @@ extension CharactersListViewController: UITableViewDataSource {
         else {
             let message: String = "Unable to dequeue valid \(String(describing: CharacterTableViewCell.self))!"
             Logger.error.message(message)
-            return UITableViewCell()
+            assert(false, message)
         }
         
         do {
             let character: BreakingBadCharacter = try self.viewModel.character(for: indexPath)
-            cell.configure(with: character)
+            cell.configure(with: character, imageCache: self.imageCache)
             cell.accessoryType = .disclosureIndicator
             return cell
         }
         catch let error as NSError {
             Logger.error.message().object(error)
-            return UITableViewCell()
+            assert(false, error.localizedDescription)
         }
     }
 }
@@ -125,11 +151,22 @@ extension CharactersListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView,
+                   willDisplay cell: UITableViewCell,
+                   forRowAt indexPath: IndexPath)
+    {
+        let count: Int = self.viewModel.getCharactes().count
+        if indexPath.row == (count - 1) {
+            self.viewModel.fetchCharacters()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath)
     {
         do {
             let character: BreakingBadCharacter = try self.viewModel.character(for: indexPath)
-            let factory: CharacterDetailsViewControllerFactory = self.provideCharacterDetailsViewControllerFactoryWith(character)
+            let factory: CharacterDetailsViewControllerFactory =
+                self.provideCharacterDetailsViewControllerFactoryWith(character)
             let vc: CharacterDetailsViewController = factory.makeCharacterDetailsViewController()
             self.navigationController?.pushViewController(vc,
                                                           animated: true)

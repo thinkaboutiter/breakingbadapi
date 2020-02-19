@@ -12,13 +12,13 @@ import Alamofire
 extension UIImageView {
     
     func configure(with urlString: String,
-                   using imageCacheManager: ImageCacheManager)
+                   using imageCache: ImageCacheManager)
     {
         guard let valid_url: URL = URL(string: urlString) else {
             return
         }
         self.contentMode = .scaleAspectFill
-        if let existingImage: UIImage = imageCacheManager.image(withIdentifier: urlString) {
+        if let existingImage: UIImage = imageCache.image(withIdentifier: urlString) {
             self.image = existingImage
         }
         else {
@@ -26,7 +26,7 @@ extension UIImageView {
                 .af_setImage(withURL: valid_url)
                 { (dataResponse: DataResponse<UIImage>) in
                     if let value: UIImage = dataResponse.result.value {
-                        imageCacheManager.add(value, withIdentifier: urlString)
+                        imageCache.add(value, withIdentifier: urlString)
                     }
             }
         }

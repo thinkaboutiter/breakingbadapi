@@ -10,28 +10,26 @@ import Foundation
 import SimpleLogger
 
 /// APIs for `ViewModel` to expose to `Model`
-protocol CharactersListModelConsumer: AnyObject {}
+protocol CharactersListModelConsumer: AnyObject {
+    func didUpdateCharacters(on model: CharactersListModel)
+}
 
 /// APIs for `Model` to expose to `ViewModel`
 protocol CharactersListModel: AnyObject {
     func setModelConsumer(_ newValue: CharactersListModelConsumer)
+    func addCharacters(_ collection: [BreakingBadCharacter])
     func characters() -> [BreakingBadCharacter]
+    func clearAllCharacters()
 }
 
 class CharactersListModelImpl: CharactersListModel {
     
     // MARK: - Properties
     private weak var modelConsumer: CharactersListModelConsumer!
-    private lazy var _characters: [BreakingBadCharacter] = {
-        var result: [BreakingBadCharacter] = []
-        do {
-            result = try self.loadCharacters()
-        }
-        catch {
-            Logger.error.message().object(error as NSError)
-        }
-        return result
-    }()
+    private let concurrentCacheQueue = DispatchQueue(label: Constants.concurrentQueueLabel,
+                                                     qos: .default,
+                                                     attributes: .concurrent)
+    private lazy var cache: NSMutableOrderedSet = []
     
     // MARK: - Initialization
     init() {
@@ -47,8 +45,56 @@ class CharactersListModelImpl: CharactersListModel {
         self.modelConsumer = newValue
     }
     
+    func addCharacters(_ collection: [BreakingBadCharacter]) {
+        self.concurrentCacheQueue
+            .async(qos: .default,
+                   flags: .barrier)
+            { [weak self] in
+                guard let valid_self = self else {
+                    return
+                }
+                valid_self.cache.addObjects(from: collection)
+                DispatchQueue.main.async { [weak self] in
+                    guard let valid_self = self else {
+                        return
+                    }
+                    valid_self.modelConsumer.didUpdateCharacters(on: valid_self)
+                }
+        }
+    }
+    
     func characters() -> [BreakingBadCharacter] {
-        return self._characters
+        var result: [BreakingBadCharacter]!
+        self.concurrentCacheQueue.sync { [weak self] in
+            guard let valid_self = self else {
+                return
+            }
+            result = valid_self.cache.compactMap { (element: Any) -> BreakingBadCharacter? in
+                guard let valid_entity: BreakingBadCharacterAppEntity = element as? BreakingBadCharacterAppEntity else {
+                    return nil
+                }
+                return valid_entity
+            }
+        }
+        return result
+    }
+    
+    func clearAllCharacters() {
+        self.concurrentCacheQueue
+            .async(qos: .default,
+                   flags: .barrier)
+            { [weak self] in
+                guard let valid_self = self else {
+                    return
+                }
+                valid_self.cache.removeAllObjects()
+                DispatchQueue.main.async { [weak self] in
+                    guard let valid_self = self else {
+                        return
+                    }
+                    valid_self.modelConsumer.didUpdateCharacters(on: valid_self)
+                }
+        }
     }
 }
 
@@ -85,5 +131,12 @@ private extension CharactersListModelImpl {
         enum Code {
             static let unableToObtainFilePath: Int = 9000
         }
+    }
+}
+
+// MARK: - Constants
+private extension CharactersListModelImpl {
+    enum Constants {
+        static let concurrentQueueLabel: String = "\(AppConstants.projectName)-\(String(describing: CharactersListModelImpl.self))-concurrent-queue"
     }
 }
