@@ -46,7 +46,7 @@ class CharacterTableViewCell: BaseTableViewCell {
                    imageCache: ImageCacheManager)
     {
         self.nameLabel.text = character.name
-        self.nicknameLabel.text = "(\(character.nickname.uppercased()))"
+        self.nicknameLabel.text = "(\(character.nickname))"
         self.avatarImageView.configure(with: character.imageUrlString,
                                        using: imageCache)
     }

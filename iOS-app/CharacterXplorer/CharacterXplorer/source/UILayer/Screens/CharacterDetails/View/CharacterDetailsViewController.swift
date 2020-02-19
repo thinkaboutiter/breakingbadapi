@@ -75,7 +75,7 @@ private extension CharacterDetailsViewController {
         self.avatarImageView.configure(with: character.imageUrlString,
                                        using: self.imageCache)
         self.nameLabel.text = character.name
-        self.nicknameLabel.text = "(\(character.nickname.uppercased()))"
+        self.nicknameLabel.text = "(\(character.nickname))"
         let occupationTitle: String =
             NSLocalizedString("CharacterDetailsViewController.occupationTitle.occupation",
                               comment: AppConstants.LocalizedStringComment.labelTitle)
