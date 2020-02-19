@@ -54,6 +54,7 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     
     // MARK: - CharactersListViewModelConsumer protocol
     func reloadCharacters(via viewModel: CharactersListViewModel) {
+        self.refreshControl.endRefreshing()
         self.charactersTableView.reloadData()
     }
     
@@ -62,6 +63,7 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
         super.viewDidLoad()
         self.configure_ui()
         self.viewModel.fetchCharacters()
+        self.refreshControl.beginRefreshing()
     }
 }
 
