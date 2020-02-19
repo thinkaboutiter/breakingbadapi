@@ -17,7 +17,7 @@ protocol CharacterRespository: AnyObject {
     func flushCharacters() -> [BreakingBadCharacter]
     func setRepositoryConsumer(_ newValue: CharacterRespositoryConsumer)
     func fetchCharacters()
-    func reset()
+    func refresh()
 }
 
 class CharactersRepositoryImpl: CharacterRespository {
@@ -105,9 +105,10 @@ class CharactersRepositoryImpl: CharacterRespository {
         }
     }
     
-    func reset() {
-        self.webService.resetCursor()
+    func refresh() {
         self.clearCache()
+        self.webService.resetCursor()
+        self.fetchCharacters()
     }
 }
 

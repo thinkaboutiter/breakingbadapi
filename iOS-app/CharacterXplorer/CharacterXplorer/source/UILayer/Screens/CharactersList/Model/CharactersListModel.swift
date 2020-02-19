@@ -11,7 +11,7 @@ import SimpleLogger
 
 /// APIs for `ViewModel` to expose to `Model`
 protocol CharactersListModelConsumer: AnyObject {
-    func didPersistCharacters(on model: CharactersListModel)
+    func didUpdateCharacters(on model: CharactersListModel)
 }
 
 /// APIs for `Model` to expose to `ViewModel`
@@ -57,7 +57,7 @@ class CharactersListModelImpl: CharactersListModel {
                     guard let valid_self = self else {
                         return
                     }
-                    valid_self.modelConsumer.didPersistCharacters(on: valid_self)
+                    valid_self.modelConsumer.didUpdateCharacters(on: valid_self)
                 }
         }
     }

@@ -52,7 +52,7 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     }
     
     // MARK: - CharactersListViewModelConsumer protocol
-    func loadCharacters(via viewModel: CharactersListViewModel) {
+    func reloadCharacters(via viewModel: CharactersListViewModel) {
         self.charactersTableView.reloadData()
     }
     
