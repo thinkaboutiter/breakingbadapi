@@ -54,7 +54,9 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     
     // MARK: - CharactersListViewModelConsumer protocol
     func reloadCharacters(via viewModel: CharactersListViewModel) {
-        self.refreshControl.endRefreshing()
+        if self.refreshControl.isRefreshing {
+            self.refreshControl.endRefreshing()
+        }
         self.charactersTableView.reloadData()
     }
     
@@ -93,14 +95,14 @@ private extension CharactersListViewController {
         tableView.separatorStyle = .none
     }
     
-    private func configure_refreshControl(_ refreshControl: UIRefreshControl) {
+    func configure_refreshControl(_ refreshControl: UIRefreshControl) {
         refreshControl.addTarget(self,
                                  action: #selector(refresh(sender:)),
                                  for: .valueChanged)
     }
     
     @objc
-    private func refresh(sender: UIRefreshControl) {
+    func refresh(sender: UIRefreshControl) {
         sender.endRefreshing()
         self.viewModel.refreshCharacters()
     }
