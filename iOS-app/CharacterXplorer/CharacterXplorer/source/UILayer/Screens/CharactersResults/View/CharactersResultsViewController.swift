@@ -28,7 +28,8 @@ class CharactersResultsViewController: BaseViewController, CharactersResultsView
     }
     
     @available(*, unavailable, message: "Creating this view controller with `init(nibName:bundle:)` is unsupported in favor of initializer dependency injection.")
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    override init(nibName nibNameOrNil: String?,
+                  bundle nibBundleOrNil: Bundle?) {
         fatalError("Creating this view controller with `init(nibName:bundle:)` is unsupported in favor of dependency injection initializer.")
     }
     
@@ -47,11 +48,105 @@ class CharactersResultsViewController: BaseViewController, CharactersResultsView
     }
     
     // MARK: - CharactersResultsViewModelConsumer protocol
+    func reloadCharacters(via viewModel: CharactersResultsViewModel) {
+        self.charactersTableView.reloadData()
+    }
     
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+    }
+}
+
+// MARK: - UI configurations
+private extension CharactersResultsViewController {
+    
+    func configure_ui() {
+        self.configure_title(&self.title)
+        self.configure_charactersTableView(self.charactersTableView)
+
+    }
+    
+    func configure_title(_ title: inout String?) {
+        title = NSLocalizedString("CharactersListViewController.title.characters",
+                                  comment: AppConstants.LocalizedStringComment.screenTitle)
+    }
+    
+    func configure_charactersTableView(_ tableView: CharactersTableView) {
+        let identifier: String = "\(String(describing: CharacterTableViewCell.self))"
+        tableView.register(UINib(nibName: identifier, bundle: nil),
+                           forCellReuseIdentifier: identifier)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.insetsContentViewsToSafeArea = true
+        tableView.separatorStyle = .none
+    }
+}
+
+// MARK: - UITableViewDataSource protocol
+extension CharactersResultsViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int
+    {
+        let result: Int = self.viewModel.getCharactes().count
+        return result
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        guard let cell: CharacterTableViewCell = tableView
+            .dequeueReusableCell(withIdentifier: String(describing: CharacterTableViewCell.self),
+                                 for: indexPath) as? CharacterTableViewCell
+        else {
+            let message: String = "Unable to dequeue valid \(String(describing: CharacterTableViewCell.self))!"
+            Logger.error.message(message)
+            assert(false, message)
+        }
+        
+        do {
+            let character: BreakingBadCharacter = try self.viewModel.character(for: indexPath)
+            cell.configure(with: character, imageCache: self.imageCache)
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        }
+        catch let error as NSError {
+            Logger.error.message().object(error)
+            assert(false, error.localizedDescription)
+        }
+    }
+}
+
+// MARK: - UITableViewDelegate protocol
+extension CharactersResultsViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView,
+                   heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return Constants.cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath)
+    {
+        tableView.deselectRow(at: indexPath,
+                              animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   canEditRowAt indexPath: IndexPath) -> Bool
+    {
+        return false
+    }
+}
+
+// MARK: - Constants
+private extension CharactersResultsViewController {
+    
+    enum Constants {
+        static let cellHeight: CGFloat = 82.0
     }
 }
