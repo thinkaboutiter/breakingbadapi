@@ -9,7 +9,9 @@
 import Foundation
 import SimpleLogger
 
-protocol CharactersResultsDependencyContainer: AnyObject {}
+protocol CharactersResultsDependencyContainer: AnyObject {
+    var imageCache: ImageCacheManager { get }
+}
 
 class CharactersResultsDependencyContainerImpl: CharactersResultsDependencyContainer, CharactersResultsViewControllerFactory {
     
@@ -27,10 +29,16 @@ class CharactersResultsDependencyContainerImpl: CharactersResultsDependencyConta
         Logger.fatal.message()
     }
     
+    // MARK: - CharactersResultsDependencyContainer
+    var imageCache: ImageCacheManager {
+        return self.parent.imageCache
+    }
+    
     // MARK: - CharactersResultsViewControllerFactory protocol
     func makeCharactersResultsViewController() -> CharactersResultsViewController {
         let vm: CharactersResultsViewModel = self.makeCharactersResultsViewModel()
-        let vc: CharactersResultsViewController = CharactersResultsViewController(viewModel: vm)
+        let vc: CharactersResultsViewController = CharactersResultsViewController(viewModel: vm,
+                                                                                  imageCache: self.imageCache)
         return vc
     }
     

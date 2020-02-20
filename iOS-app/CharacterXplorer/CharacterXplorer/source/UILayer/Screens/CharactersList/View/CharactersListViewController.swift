@@ -19,9 +19,11 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     // MARK: - Properties
     private let viewModel: CharactersListViewModel
     private let provideCharacterDetailsViewControllerFactoryWith: CharacterDetailsViewControllerFactoryProvider
+    private let charactersResultsViewControllerFactory: CharactersResultsViewControllerFactory
     private let imageCache: ImageCacheManager
-    @IBOutlet private weak var charactersTableView: CharactersTableView!
     private var refreshControl: UIRefreshControl = UIRefreshControl()
+    @IBOutlet private weak var charactersTableView: CharactersTableView!
+    
     
     // MARK: - Initialization
     @available(*, unavailable, message: "Creating this view controller with `init(coder:)` is unsupported in favor of initializer dependency injection.")
@@ -37,11 +39,13 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     }
     
     init(viewModel: CharactersListViewModel,
-         provider: @escaping CharacterDetailsViewControllerFactoryProvider,
+         characterDetailsProvider provider: @escaping CharacterDetailsViewControllerFactoryProvider,
+         charactersResultsFactory factory: CharactersResultsViewControllerFactory,
          imageCache: ImageCacheManager)
     {
         self.viewModel = viewModel
         self.provideCharacterDetailsViewControllerFactoryWith = provider
+        self.charactersResultsViewControllerFactory = factory
         self.imageCache = imageCache
         super.init(nibName: String(describing: CharactersListViewController.self), bundle: nil)
         self.viewModel.setViewModelConsumer(self)

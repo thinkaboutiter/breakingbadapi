@@ -18,6 +18,7 @@ class CharactersResultsViewController: BaseViewController, CharactersResultsView
     
     // MARK: - Properties
     private let viewModel: CharactersResultsViewModel
+    private let imageCache: ImageCacheManager
     @IBOutlet private weak var charactersTableView: CharactersTableView!
     
     // MARK: - Initialization
@@ -31,8 +32,11 @@ class CharactersResultsViewController: BaseViewController, CharactersResultsView
         fatalError("Creating this view controller with `init(nibName:bundle:)` is unsupported in favor of dependency injection initializer.")
     }
     
-    init(viewModel: CharactersResultsViewModel) {
+    init(viewModel: CharactersResultsViewModel,
+         imageCache: ImageCacheManager)
+    {
         self.viewModel = viewModel
+        self.imageCache = imageCache
         super.init(nibName: String(describing: CharactersResultsViewController.self), bundle: nil)
         self.viewModel.setViewModelConsumer(self)
         Logger.success.message()
