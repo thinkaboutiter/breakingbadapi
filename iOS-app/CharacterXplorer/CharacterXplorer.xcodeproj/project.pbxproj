@@ -11,6 +11,11 @@
 		4F06DCE823FB2F0800C6F131 /* BaseWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F06DCE723FB2F0800C6F131 /* BaseWebService.swift */; };
 		4F06DCEA23FB3EC700C6F131 /* CharactersWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F06DCE923FB3EC700C6F131 /* CharactersWebService.swift */; };
 		4F06DCEC23FC864300C6F131 /* CharacterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F06DCEB23FC864300C6F131 /* CharacterRepository.swift */; };
+		4F0E737123FF1F3200A33C1C /* CharactersResultsDependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0E737023FF1F3200A33C1C /* CharactersResultsDependencyContainer.swift */; };
+		4F0E737323FF1F8D00A33C1C /* CharactersResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0E737223FF1F8D00A33C1C /* CharactersResultsViewController.swift */; };
+		4F0E737523FF1FA100A33C1C /* CharactersResultsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F0E737423FF1FA100A33C1C /* CharactersResultsViewController.xib */; };
+		4F0E737723FF1FAE00A33C1C /* CharactersResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0E737623FF1FAE00A33C1C /* CharactersResultsViewModel.swift */; };
+		4F0E737923FF1FC000A33C1C /* CharactersResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0E737823FF1FC000A33C1C /* CharactersResultsModel.swift */; };
 		4F72437E23F8B9F500E8933E /* CharactersTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F72437D23F8B9F500E8933E /* CharactersTableView.swift */; };
 		4F8FE1A423F83576001E0169 /* BreakingBadCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1A323F83576001E0169 /* BreakingBadCharacter.swift */; };
 		4F8FE1AA23F8436A001E0169 /* CharactersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1A923F8436A001E0169 /* CharactersListViewController.swift */; };
@@ -50,6 +55,11 @@
 		4F06DCE723FB2F0800C6F131 /* BaseWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWebService.swift; sourceTree = "<group>"; };
 		4F06DCE923FB3EC700C6F131 /* CharactersWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersWebService.swift; sourceTree = "<group>"; };
 		4F06DCEB23FC864300C6F131 /* CharacterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRepository.swift; sourceTree = "<group>"; };
+		4F0E737023FF1F3200A33C1C /* CharactersResultsDependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersResultsDependencyContainer.swift; sourceTree = "<group>"; };
+		4F0E737223FF1F8D00A33C1C /* CharactersResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersResultsViewController.swift; sourceTree = "<group>"; };
+		4F0E737423FF1FA100A33C1C /* CharactersResultsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CharactersResultsViewController.xib; sourceTree = "<group>"; };
+		4F0E737623FF1FAE00A33C1C /* CharactersResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersResultsViewModel.swift; sourceTree = "<group>"; };
+		4F0E737823FF1FC000A33C1C /* CharactersResultsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersResultsModel.swift; sourceTree = "<group>"; };
 		4F72437D23F8B9F500E8933E /* CharactersTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersTableView.swift; sourceTree = "<group>"; };
 		4F8FE1A323F83576001E0169 /* BreakingBadCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakingBadCharacter.swift; sourceTree = "<group>"; };
 		4F8FE1A923F8436A001E0169 /* CharactersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +122,42 @@
 				4F06DCE723FB2F0800C6F131 /* BaseWebService.swift */,
 			);
 			path = _baseClass;
+			sourceTree = "<group>";
+		};
+		4F0E736C23FF1EDE00A33C1C /* CharactersResults */ = {
+			isa = PBXGroup;
+			children = (
+				4F0E737023FF1F3200A33C1C /* CharactersResultsDependencyContainer.swift */,
+				4F0E736D23FF1EED00A33C1C /* Model */,
+				4F0E736E23FF1EF800A33C1C /* View */,
+				4F0E736F23FF1EFE00A33C1C /* ViewModel */,
+			);
+			path = CharactersResults;
+			sourceTree = "<group>";
+		};
+		4F0E736D23FF1EED00A33C1C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4F0E737823FF1FC000A33C1C /* CharactersResultsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4F0E736E23FF1EF800A33C1C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4F0E737223FF1F8D00A33C1C /* CharactersResultsViewController.swift */,
+				4F0E737423FF1FA100A33C1C /* CharactersResultsViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4F0E736F23FF1EFE00A33C1C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4F0E737623FF1FAE00A33C1C /* CharactersResultsViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		4F8FE1A523F842E6001E0169 /* CharactersList */ = {
@@ -310,6 +356,7 @@
 		4FAC0A9323F7FA8500B1FB76 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				4F0E736C23FF1EDE00A33C1C /* CharactersResults */,
 				4F9C3EC223F9E51900F70723 /* CharacterDetails */,
 				4F8FE1A523F842E6001E0169 /* CharactersList */,
 				4FAC0A9423F7FA8500B1FB76 /* Root */,
@@ -427,6 +474,7 @@
 				4F8FE1AC23F84380001E0169 /* CharactersListViewController.xib in Resources */,
 				4FAC0A7D23F7F48600B1FB76 /* Assets.xcassets in Resources */,
 				4FAC0AAE23F80C8B00B1FB76 /* LaunchScreen.storyboard in Resources */,
+				4F0E737523FF1FA100A33C1C /* CharactersResultsViewController.xib in Resources */,
 				4F8FE1CD23F8AE61001E0169 /* CharacterTableViewCell.xib in Resources */,
 				4FAC0AAB23F8010B00B1FB76 /* RootViewController.xib in Resources */,
 			);
@@ -464,6 +512,7 @@
 				4F06DCEC23FC864300C6F131 /* CharacterRepository.swift in Sources */,
 				4F8FE1AA23F8436A001E0169 /* CharactersListViewController.swift in Sources */,
 				4F06DCE823FB2F0800C6F131 /* BaseWebService.swift in Sources */,
+				4F0E737123FF1F3200A33C1C /* CharactersResultsDependencyContainer.swift in Sources */,
 				4F8FE1B223F843C0001E0169 /* CharactersListDependencyContainer.swift in Sources */,
 				4F8FE1AE23F84390001E0169 /* CharactersListViewModel.swift in Sources */,
 				4F06DCEA23FB3EC700C6F131 /* CharactersWebService.swift in Sources */,
@@ -485,7 +534,10 @@
 				4F8FE1C423F89C69001E0169 /* ErrorCreator.swift in Sources */,
 				4F8FE1C923F8ADCA001E0169 /* BaseTableViewCell.swift in Sources */,
 				4F72437E23F8B9F500E8933E /* CharactersTableView.swift in Sources */,
+				4F0E737923FF1FC000A33C1C /* CharactersResultsModel.swift in Sources */,
 				4FAC0AAD23F80B4200B1FB76 /* BaseViewController.swift in Sources */,
+				4F0E737323FF1F8D00A33C1C /* CharactersResultsViewController.swift in Sources */,
+				4F0E737723FF1FAE00A33C1C /* CharactersResultsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
