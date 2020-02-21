@@ -44,7 +44,8 @@ class CharactersResultsDependencyContainerImpl: CharactersResultsDependencyConta
         let vm: CharactersResultsViewModel = self.makeCharactersResultsViewModel()
         let vc: CharactersResultsViewController = CharactersResultsViewController(viewModel: vm,
                                                                                   characterDetailsProvider: self.provider,
-                                                                                  imageCache: self.imageCache)
+                                                                                  imageCache: self.imageCache,
+                                                                                  contextNavigationController: self.parent.rootNavigationController)
         return vc
     }
     

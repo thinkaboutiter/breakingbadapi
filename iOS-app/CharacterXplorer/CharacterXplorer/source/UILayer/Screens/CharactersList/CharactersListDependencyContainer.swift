@@ -13,7 +13,9 @@ protocol ImageCacheProvider: AnyObject {
     var imageCache: ImageCacheManager { get }
 }
 
-protocol CharactersListDependencyContainer: ImageCacheProvider {}
+protocol CharactersListDependencyContainer: ImageCacheProvider {
+    var rootNavigationController: BaseNavigationController { get }
+}
 
 typealias CharacterDetailsViewControllerFactoryProvider = (BreakingBadCharacter) -> CharacterDetailsViewControllerFactory
 
@@ -46,6 +48,10 @@ class CharactersListDependencyContainerImpl: CharactersListDependencyContainer, 
     // MARK: - CharactersListDependencyContainer
     var imageCache: ImageCacheManager {
         return self.parent.imageCache
+    }
+    
+    var rootNavigationController: BaseNavigationController {
+        return self.parent.rootNavigationController
     }
     
     // MARK: - CharactersListViewControllerFactory protocol

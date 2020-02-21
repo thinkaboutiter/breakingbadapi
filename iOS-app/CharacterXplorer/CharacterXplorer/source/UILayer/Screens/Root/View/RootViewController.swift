@@ -17,8 +17,9 @@ protocol RootViewControllerFactory {
 class RootViewController: BaseViewController {
     
     // MARK: - Properties
-    @IBOutlet weak var testLabel: UILabel!
     private let charactersListViewControllerFactory: CharactersListViewControllerFactory
+    private let contextNavigationController: BaseNavigationController
+    @IBOutlet weak var testLabel: UILabel!
     
     // MARK: - Initialization
     @available(*, unavailable, message: "Creating this view controller with `init(coder:)` is unsupported in favor of initializer dependency injection.")
@@ -33,8 +34,11 @@ class RootViewController: BaseViewController {
         fatalError("Creating this view controller with `init(nibName:bundle:)` is unsupported in favor of dependency injection initializer.")
     }
     
-    init(charactersListViewControllerFactory factory: CharactersListViewControllerFactory) {
+    init(charactersListViewControllerFactory factory: CharactersListViewControllerFactory,
+         contextNavigationController: BaseNavigationController)
+    {
         self.charactersListViewControllerFactory = factory
+        self.contextNavigationController = contextNavigationController
         super.init(nibName: String(describing: RootViewController.self), bundle: nil)
         Logger.success.message()
     }
@@ -57,9 +61,9 @@ private extension RootViewController {
     
     func embedCharactersListViewController() {
         let vc: CharactersListViewController = self.charactersListViewControllerFactory.makeCharactersListViewController()
-        let nc: BaseNavigationController = BaseNavigationController(rootViewController: vc)
+        self.contextNavigationController.pushViewController(vc, animated: false)
         do {
-            try self.embed(nc,
+            try self.embed(self.contextNavigationController,
                            containerView: self.view)
         }
         catch let error as NSError {
