@@ -143,6 +143,14 @@ extension CharactersResultsViewController: UITableViewDelegate {
     }
 }
 
+extension CharactersResultsViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let text: String? = searchController.searchBar.text
+        Logger.debug.message("searchBar.text=\(text ?? "")")
+    }
+}
+
 // MARK: - Constants
 private extension CharactersResultsViewController {
     

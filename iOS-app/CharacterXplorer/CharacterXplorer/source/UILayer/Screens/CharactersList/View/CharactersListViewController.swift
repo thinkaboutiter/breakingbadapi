@@ -20,6 +20,17 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     private let viewModel: CharactersListViewModel
     private let provideCharacterDetailsViewControllerFactoryWith: CharacterDetailsViewControllerFactoryProvider
     private let charactersResultsViewControllerFactory: CharactersResultsViewControllerFactory
+    private lazy var searchController: UISearchController = {
+        let resultsVc: CharactersResultsViewController =
+            self.charactersResultsViewControllerFactory.makeCharactersResultsViewController()
+        let result: UISearchController = UISearchController(searchResultsController: resultsVc)
+        result.searchResultsUpdater = resultsVc
+        result.obscuresBackgroundDuringPresentation = true
+        result.searchBar.placeholder =
+            NSLocalizedString("UISearchController.searchBar.placeholder.search-character-by-name",
+                              comment: AppConstants.LocalizedStringComment.labelTitle)
+        return result
+    }()
     private let imageCache: ImageCacheManager
     private var refreshControl: UIRefreshControl = UIRefreshControl()
     @IBOutlet private weak var charactersTableView: CharactersTableView!
@@ -81,7 +92,7 @@ private extension CharactersListViewController {
         self.configure_charactersTableView(self.charactersTableView)
         self.configure_refreshControl(self.refreshControl)
         self.charactersTableView.addSubview(self.refreshControl)
-
+        self.navigationItem.searchController = self.searchController
     }
     
     func configure_title(_ title: inout String?) {
