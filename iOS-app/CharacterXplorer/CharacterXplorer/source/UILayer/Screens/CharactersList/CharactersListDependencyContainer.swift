@@ -9,9 +9,11 @@
 import Foundation
 import SimpleLogger
 
-protocol CharactersListDependencyContainer: AnyObject {
+protocol ImageCacheProvider: AnyObject {
     var imageCache: ImageCacheManager { get }
 }
+
+protocol CharactersListDependencyContainer: ImageCacheProvider {}
 
 typealias CharacterDetailsViewControllerFactoryProvider = (BreakingBadCharacter) -> CharacterDetailsViewControllerFactory
 

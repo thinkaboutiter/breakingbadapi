@@ -9,14 +9,19 @@
 import Foundation
 import SimpleLogger
 
-protocol CharactersResultsDependencyContainer: AnyObject {
-    var imageCache: ImageCacheManager { get }
-}
+protocol CharactersResultsDependencyContainer: ImageCacheProvider {}
 
 class CharactersResultsDependencyContainerImpl: CharactersResultsDependencyContainer, CharactersResultsViewControllerFactory {
     
     // MARK: - Properties
     private let parent: CharactersListDependencyContainer
+    private lazy var provider: CharacterDetailsViewControllerFactoryProvider = { character in
+        let factory: CharacterDetailsViewControllerFactory =
+            CharacterDetailsDependencyContainerImpl(parent: self) { () -> BreakingBadCharacter in
+                return character
+        }
+        return factory
+    }
     
     // MARK: - Initialization
     init(parent: CharactersListDependencyContainer) {
@@ -38,6 +43,7 @@ class CharactersResultsDependencyContainerImpl: CharactersResultsDependencyConta
     func makeCharactersResultsViewController() -> CharactersResultsViewController {
         let vm: CharactersResultsViewModel = self.makeCharactersResultsViewModel()
         let vc: CharactersResultsViewController = CharactersResultsViewController(viewModel: vm,
+                                                                                  characterDetailsProvider: self.provider,
                                                                                   imageCache: self.imageCache)
         return vc
     }
