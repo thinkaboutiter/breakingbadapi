@@ -21,10 +21,10 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     private let provideCharacterDetailsViewControllerFactoryWith: CharacterDetailsViewControllerFactoryProvider
     private let charactersResultsViewControllerFactory: CharactersResultsViewControllerFactory
     private lazy var searchController: UISearchController = {
-        let resultsVc: CharactersResultsViewController =
+        let vc: CharactersResultsViewController =
             self.charactersResultsViewControllerFactory.makeCharactersResultsViewController()
-        let result: UISearchController = UISearchController(searchResultsController: resultsVc)
-        result.searchResultsUpdater = resultsVc
+        let result: UISearchController = UISearchController(searchResultsController: vc)
+        result.searchResultsUpdater = vc
         result.obscuresBackgroundDuringPresentation = true
         result.searchBar.placeholder =
             NSLocalizedString("UISearchController.searchBar.placeholder.search-character-by-name",

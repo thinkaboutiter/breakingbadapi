@@ -359,9 +359,9 @@
 		4FAC0A9323F7FA8500B1FB76 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				4F0E736C23FF1EDE00A33C1C /* CharactersResults */,
 				4F9C3EC223F9E51900F70723 /* CharacterDetails */,
 				4F8FE1A523F842E6001E0169 /* CharactersList */,
+				4F0E736C23FF1EDE00A33C1C /* CharactersResults */,
 				4FAC0A9423F7FA8500B1FB76 /* Root */,
 			);
 			path = Screens;
