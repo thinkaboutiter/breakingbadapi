@@ -18,7 +18,9 @@ class CharactersResultsViewController: BaseViewController, CharactersResultsView
     
     // MARK: - Properties
     private let viewModel: CharactersResultsViewModel
+    private let provideCharacterDetailsViewControllerFactoryWith: CharacterDetailsViewControllerFactoryProvider
     private let imageCache: ImageCacheManager
+    private let contextNavigationController: UINavigationController
     @IBOutlet private weak var charactersTableView: CharactersTableView!
     
     // MARK: - Initialization
@@ -33,11 +35,21 @@ class CharactersResultsViewController: BaseViewController, CharactersResultsView
         fatalError("Creating this view controller with `init(nibName:bundle:)` is unsupported in favor of dependency injection initializer.")
     }
     
+    /// Custom initializer.
+    /// - Parameters:
+    ///   - viewModel: the view model object
+    ///   - provider: closure to provide `CharacterDerailsViewController` object
+    ///   - imageCache: shared image cache
+    ///   - contextNavigationController: `UINavigationController` object to be used to push new content onto
     init(viewModel: CharactersResultsViewModel,
-         imageCache: ImageCacheManager)
+         characterDetailsProvider provider: @escaping CharacterDetailsViewControllerFactoryProvider,
+         imageCache: ImageCacheManager,
+         contextNavigationController: BaseNavigationController)
     {
         self.viewModel = viewModel
+        self.provideCharacterDetailsViewControllerFactoryWith = provider
         self.imageCache = imageCache
+        self.contextNavigationController = contextNavigationController
         super.init(nibName: String(describing: CharactersResultsViewController.self), bundle: nil)
         self.viewModel.setViewModelConsumer(self)
         Logger.success.message()
@@ -131,8 +143,21 @@ extension CharactersResultsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath)
     {
-        tableView.deselectRow(at: indexPath,
-                              animated: true)
+        defer {
+            tableView.deselectRow(at: indexPath,
+                                  animated: true)
+        }
+        do {
+            let character: BreakingBadCharacter = try self.viewModel.character(for: indexPath)
+            let factory: CharacterDetailsViewControllerFactory =
+                self.provideCharacterDetailsViewControllerFactoryWith(character)
+            let vc: CharacterDetailsViewController = factory.makeCharacterDetailsViewController()
+            self.contextNavigationController.pushViewController(vc,
+                                                                animated: true)
+        }
+        catch {
+            Logger.error.message().object(error as NSError)
+        }
     }
     
     func tableView(_ tableView: UITableView,
