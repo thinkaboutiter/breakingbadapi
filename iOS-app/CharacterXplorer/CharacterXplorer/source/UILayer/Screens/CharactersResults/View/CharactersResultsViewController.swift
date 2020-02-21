@@ -55,8 +55,7 @@ class CharactersResultsViewController: BaseViewController, CharactersResultsView
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        self.configure_ui()
     }
 }
 
@@ -148,6 +147,7 @@ extension CharactersResultsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let text: String? = searchController.searchBar.text
         Logger.debug.message("searchBar.text=\(text ?? "")")
+        self.charactersTableView.reloadData()
     }
 }
 

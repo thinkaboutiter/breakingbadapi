@@ -30,6 +30,20 @@ class CharactersResultsModelImpl: CharactersResultsModel {
                                                      attributes: .concurrent)
     private lazy var cache: NSMutableOrderedSet = []
     
+    // stub data
+    let shouldUseStubData: Bool = true
+    private lazy var stubCharacters: [BreakingBadCharacter] = {
+        var result: [BreakingBadCharacter] = []
+        do {
+            result = try self.loadBundledCharacters()
+        }
+        catch {
+            Logger.error.message().object(error as NSError)
+        }
+        return result
+    }()
+
+    
     // MARK: - Initialization
     init() {
         Logger.success.message()
@@ -64,20 +78,64 @@ class CharactersResultsModelImpl: CharactersResultsModel {
     
     func characters() -> [BreakingBadCharacter] {
         var result: [BreakingBadCharacter]!
-        self.concurrentCacheQueue.sync { [weak self] in
-            guard let valid_self = self else {
-                return
-            }
-            result = valid_self.cache.compactMap { (element: Any) -> BreakingBadCharacter? in
-                guard let valid_entity: BreakingBadCharacterAppEntity = element as? BreakingBadCharacterAppEntity else {
-                    return nil
+        if self.shouldUseStubData {
+            result = self.stubCharacters
+        }
+        else {
+            self.concurrentCacheQueue.sync { [weak self] in
+                guard let valid_self = self else {
+                    return
                 }
-                return valid_entity
+                result = valid_self.cache.compactMap { (element: Any) -> BreakingBadCharacter? in
+                    guard let valid_entity: BreakingBadCharacterAppEntity = element as? BreakingBadCharacterAppEntity else {
+                        return nil
+                    }
+                    return valid_entity
+                }
             }
         }
         return result
     }
 }
+
+
+// MARK: - Utils
+private extension CharactersResultsModelImpl {
+    
+    func loadBundledCharacters() throws -> [BreakingBadCharacter] {
+        let filename: String = "characters.json"
+        guard let valid_filePath = Bundle.main.path(forResource: filename, ofType: nil) else {
+            let message: String = NSLocalizedString("Unable to obtain filepath!", comment: AppConstants.LocalizedStringComment.errorMessage)
+            let error: NSError = ErrorCreator
+                .custom(domain: InternalError.domainName,
+                        code: InternalError.Code.unableToObtainFilePath,
+                        localizedMessage: message)
+                .error()
+            throw error
+        }
+        let fileUrl: URL = URL(fileURLWithPath: valid_filePath)
+        let jsonData: Data = try Data(contentsOf: fileUrl)
+        let decoder: JSONDecoder = JSONDecoder()
+        let result: [BreakingBadCharacter] = try decoder
+            .decode([BreakingBadCharacterWebEntity].self,
+                    from: jsonData)
+            .map() { BreakingBadCharacterAppEntity(webEntity: $0) }
+        return result
+    }
+}
+
+// MARK: - Errors
+private extension CharactersResultsModelImpl {
+    
+    enum InternalError {
+        static let domainName: String = "\(AppConstants.projectName).\(String(describing: CharactersResultsModelImpl.self)).\(String(describing: InternalError.self))"
+        
+        enum Code {
+            static let unableToObtainFilePath: Int = 9000
+        }
+    }
+}
+
 
 // MARK: - Constants
 private extension CharactersResultsModelImpl {
