@@ -180,19 +180,32 @@ extension CharactersListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath)
     {
+        defer {
+            tableView.deselectRow(at: indexPath,
+                                  animated: true)
+        }
         do {
             let character: BreakingBadCharacter = try self.viewModel.character(for: indexPath)
             let factory: CharacterDetailsViewControllerFactory =
                 self.provideCharacterDetailsViewControllerFactoryWith(character)
             let vc: CharacterDetailsViewController = factory.makeCharacterDetailsViewController()
-            self.navigationController?.pushViewController(vc,
-                                                          animated: true)
+            guard let valid_nc: UINavigationController = self.navigationController else {
+                let message: String = NSLocalizedString("Unable to obtain \(String(describing: UINavigationController.self)) object!",
+                                                        comment: AppConstants.LocalizedStringComment.errorMessage)
+                let error: NSError = ErrorCreator
+                    .custom(domain: InternalError.domainName,
+                            code: InternalError.Code.unableToObtainNavigationController,
+                            localizedMessage: message)
+                    .error()
+                Logger.error.message().object(error)
+                return
+            }
+            valid_nc.pushViewController(vc,
+                                        animated: true)
         }
         catch {
             Logger.error.message().object(error as NSError)
         }
-        tableView.deselectRow(at: indexPath,
-                              animated: true)
     }
     
     func tableView(_ tableView: UITableView,
@@ -207,5 +220,17 @@ private extension CharactersListViewController {
     
     enum Constants {
         static let cellHeight: CGFloat = 82.0
+    }
+}
+
+// MARK: - Internal Errors
+private extension CharactersListViewController {
+    
+    enum InternalError {
+        static let domainName: String = "\(AppConstants.projectName).\(String(describing: CharactersListViewController.self)).\(String(describing: InternalError.self))"
+        
+        enum Code {
+            static let unableToObtainNavigationController: Int = 9000
+        }
     }
 }
