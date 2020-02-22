@@ -100,6 +100,14 @@ extension CharactersListViewModelImpl: CharacterRespositoryConsumer {
     func didFailToFetchCharacters(on repository: CharacterRespository,
                                   with error: NSError)
     {
+        let domain: String = error.domain
+        let code: Int = error.code
+        guard domain != CharactersWebService.InternalError.domainName
+            && code != CharactersWebService.InternalError.Code.endOfListReached
+        else {
+            // We don't want to show UI error when reaching end of list
+            return
+        }
         self.viewModelConsumer.show(error)
     }
 }

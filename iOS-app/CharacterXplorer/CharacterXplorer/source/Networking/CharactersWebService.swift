@@ -125,7 +125,7 @@ extension CharactersWebService {
 }
 
 // MARK: - Internal Errors
-private extension CharactersWebService {
+extension CharactersWebService {
     
     enum InternalError {
         static let domainName: String = "\(AppConstants.projectName).\(String(describing: CharactersWebService.self)).\(String(describing: InternalError.self))"
