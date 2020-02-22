@@ -170,9 +170,19 @@ extension CharactersResultsViewController: UITableViewDelegate {
 extension CharactersResultsViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        let text: String? = searchController.searchBar.text
-        Logger.debug.message("searchBar.text=\(text ?? "")")
-        self.charactersTableView.reloadData()
+        guard let valid_text: String = searchController.searchBar.text else {
+            let message: String = NSLocalizedString("Invalid searchBar.text object!",
+                                                    comment: AppConstants.LocalizedStringComment.errorMessage)
+            let error: NSError = ErrorCreator
+                .custom(domain: InternalError.domainName,
+                        code: InternalError.Code.invalidSearchText,
+                        localizedMessage: message)
+                .error()
+            Logger.error.message().object(error)
+            return
+        }
+        Logger.debug.message("searchBar.text=\(valid_text)")
+        self.viewModel.getCharacterByName(valid_text)
     }
 }
 
@@ -181,5 +191,17 @@ private extension CharactersResultsViewController {
     
     enum Constants {
         static let cellHeight: CGFloat = 82.0
+    }
+}
+
+// MARK: - Internal Errors
+private extension CharactersResultsViewController {
+    
+    enum InternalError {
+        static let domainName: String = "\(AppConstants.projectName).\(String(describing: CharactersResultsViewController.self)).\(String(describing: InternalError.self))"
+        
+        enum Code {
+            static let invalidSearchText: Int = 9000
+        }
     }
 }
