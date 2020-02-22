@@ -77,6 +77,13 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
         self.charactersTableView.reloadData()
     }
     
+    func show(_ error: NSError) {
+        if self.refreshControl.isRefreshing {
+            self.refreshControl.endRefreshing()
+        }
+        self.showAlert(for: error)
+    }
+    
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()

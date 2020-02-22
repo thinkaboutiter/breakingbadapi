@@ -12,6 +12,7 @@ import SimpleLogger
 /// APIs for `View` to expose to `ViewModel`
 protocol CharactersResultsViewModelConsumer: AnyObject {
     func reloadCharacters()
+    func show(_ error: NSError)
 }
 
 /// APIs for `ViewModel` to expose to `View`
@@ -130,6 +131,12 @@ extension CharactersResultsViewModelImpl: CharacterRespositoryConsumer {
     func didFetchCharacters(on repository: CharacterRespository) {
         let characters: [BreakingBadCharacter] = repository.flushCharacters()
         self.model.addCharacters(characters)
+    }
+    
+    func didFailToFetchCharacters(on repository: CharacterRespository,
+                                  with error: NSError)
+    {
+        self.viewModelConsumer.show(error)
     }
 }
 
