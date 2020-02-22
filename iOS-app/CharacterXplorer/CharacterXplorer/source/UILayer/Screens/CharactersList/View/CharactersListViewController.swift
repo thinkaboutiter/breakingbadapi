@@ -70,7 +70,7 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     }
     
     // MARK: - CharactersListViewModelConsumer protocol
-    func reloadCharacters(via viewModel: CharactersListViewModel) {
+    func reloadCharacters() {
         if self.refreshControl.isRefreshing {
             self.refreshControl.endRefreshing()
         }

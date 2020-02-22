@@ -11,7 +11,7 @@ import SimpleLogger
 
 /// APIs for `View` to expose to `ViewModel`
 protocol CharactersResultsViewModelConsumer: AnyObject {
-    func reloadCharacters(via viewModel: CharactersResultsViewModel)
+    func reloadCharacters()
 }
 
 /// APIs for `ViewModel` to expose to `View`
@@ -114,13 +114,13 @@ class CharactersResultsViewModelImpl: CharactersResultsViewModel, CharactersResu
             self.repository.fetchCharacters()
         }
         else {
-            self.viewModelConsumer.reloadCharacters(via: self)
+            self.viewModelConsumer.reloadCharacters()
         }
     }
     
     // MARK: - CharactersResultsModelConsumer protocol
     func didUpdateCharacters(on model: CharactersResultsModel) {
-        self.viewModelConsumer.reloadCharacters(via: self)
+        self.viewModelConsumer.reloadCharacters()
     }
 }
 

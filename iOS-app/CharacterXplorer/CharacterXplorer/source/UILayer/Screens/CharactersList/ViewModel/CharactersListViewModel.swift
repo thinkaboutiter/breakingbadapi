@@ -11,7 +11,7 @@ import SimpleLogger
 
 /// APIs for `View` to expose to `ViewModel`
 protocol CharactersListViewModelConsumer: AnyObject {
-    func reloadCharacters(via viewModel: CharactersListViewModel)
+    func reloadCharacters()
 }
 
 /// APIs for `ViewModel` to expose to `View`
@@ -84,7 +84,7 @@ class CharactersListViewModelImpl: CharactersListViewModel, CharactersListModelC
     
     // MARK: - CharactersListModelConsumer protocol
     func didUpdateCharacters(on model: CharactersListModel) {
-        self.viewModelConsumer.reloadCharacters(via: self)
+        self.viewModelConsumer.reloadCharacters()
     }
 }
 
