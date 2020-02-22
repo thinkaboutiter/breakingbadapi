@@ -16,5 +16,6 @@ enum AppConstants {
         static let errorMessage: String = "Error message"
         static let labelTitle: String = "Label title"
         static let screenTitle: String = "Screen title"
+        static let episodeTitle: String = "Episode title"
     }
 }

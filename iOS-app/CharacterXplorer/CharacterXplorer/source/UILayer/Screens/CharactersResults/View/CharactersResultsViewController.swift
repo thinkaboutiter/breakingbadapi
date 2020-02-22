@@ -77,7 +77,6 @@ private extension CharactersResultsViewController {
     func configure_ui() {
         self.configure_title(&self.title)
         self.configure_charactersTableView(self.charactersTableView)
-
     }
     
     func configure_title(_ title: inout String?) {
@@ -186,6 +185,26 @@ extension CharactersResultsViewController: UISearchResultsUpdating {
     }
 }
 
+extension CharactersResultsViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar,
+                   selectedScopeButtonIndexDidChange selectedScope: Int)
+    {
+        guard let valid_season: BreakingBadSeason = BreakingBadSeason(rawValue: selectedScope) else {
+            let message: String = NSLocalizedString("Unable to create \(String(describing: BreakingBadSeason.self)) value from raw_value=\(selectedScope)!",
+                                                    comment: AppConstants.LocalizedStringComment.errorMessage)
+            let error: NSError = ErrorCreator
+                .custom(domain: InternalError.domainName,
+                        code: InternalError.Code.unableToCreateBreakingBadSeason,
+                        localizedMessage: message)
+                .error()
+            Logger.error.message().object(error)
+            return
+        }
+        self.viewModel.setSelectedSeason(valid_season)
+    }
+}
+
 // MARK: - Constants
 private extension CharactersResultsViewController {
     
@@ -202,6 +221,7 @@ private extension CharactersResultsViewController {
         
         enum Code {
             static let invalidSearchText: Int = 9000
+            static let unableToCreateBreakingBadSeason: Int = 9001
         }
     }
 }

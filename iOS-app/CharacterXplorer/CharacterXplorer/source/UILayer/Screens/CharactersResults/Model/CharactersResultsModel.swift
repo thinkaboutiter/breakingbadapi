@@ -30,20 +30,6 @@ class CharactersResultsModelImpl: CharactersResultsModel {
                                                      attributes: .concurrent)
     private lazy var cache: NSMutableOrderedSet = []
     
-    // stub data
-    let shouldUseStubData: Bool = true
-    private lazy var stubCharacters: [BreakingBadCharacter] = {
-        var result: [BreakingBadCharacter] = []
-        do {
-            result = try self.loadBundledCharacters()
-        }
-        catch {
-            Logger.error.message().object(error as NSError)
-        }
-        return result
-    }()
-
-    
     // MARK: - Initialization
     init() {
         Logger.success.message()
@@ -78,20 +64,15 @@ class CharactersResultsModelImpl: CharactersResultsModel {
     
     func characters() -> [BreakingBadCharacter] {
         var result: [BreakingBadCharacter]!
-        if self.shouldUseStubData {
-            result = self.stubCharacters
-        }
-        else {
-            self.concurrentCacheQueue.sync { [weak self] in
-                guard let valid_self = self else {
-                    return
+        self.concurrentCacheQueue.sync { [weak self] in
+            guard let valid_self = self else {
+                return
+            }
+            result = valid_self.cache.compactMap { (element: Any) -> BreakingBadCharacter? in
+                guard let valid_entity: BreakingBadCharacterAppEntity = element as? BreakingBadCharacterAppEntity else {
+                    return nil
                 }
-                result = valid_self.cache.compactMap { (element: Any) -> BreakingBadCharacter? in
-                    guard let valid_entity: BreakingBadCharacterAppEntity = element as? BreakingBadCharacterAppEntity else {
-                        return nil
-                    }
-                    return valid_entity
-                }
+                return valid_entity
             }
         }
         return result

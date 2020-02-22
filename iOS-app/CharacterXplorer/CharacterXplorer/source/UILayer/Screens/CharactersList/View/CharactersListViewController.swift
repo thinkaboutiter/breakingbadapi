@@ -29,6 +29,8 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
         result.searchBar.placeholder =
             NSLocalizedString("UISearchController.searchBar.placeholder.search-character-by-name",
                               comment: AppConstants.LocalizedStringComment.labelTitle)
+        result.searchBar.scopeButtonTitles = BreakingBadSeason.allCases.map() { $0.stringValue }
+        result.searchBar.delegate = vc
         return result
     }()
     private let imageCache: ImageCacheManager

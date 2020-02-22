@@ -16,6 +16,7 @@
 		4F0E737523FF1FA100A33C1C /* CharactersResultsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F0E737423FF1FA100A33C1C /* CharactersResultsViewController.xib */; };
 		4F0E737723FF1FAE00A33C1C /* CharactersResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0E737623FF1FAE00A33C1C /* CharactersResultsViewModel.swift */; };
 		4F0E737923FF1FC000A33C1C /* CharactersResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0E737823FF1FC000A33C1C /* CharactersResultsModel.swift */; };
+		4F6E0A172400B75A00D07D9B /* BreakingBadSeason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6E0A162400B75A00D07D9B /* BreakingBadSeason.swift */; };
 		4F72437E23F8B9F500E8933E /* CharactersTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F72437D23F8B9F500E8933E /* CharactersTableView.swift */; };
 		4F8699AC2400724B000CB98C /* characters.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F8699AB2400724A000CB98C /* characters.json */; };
 		4F8FE1A423F83576001E0169 /* BreakingBadCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FE1A323F83576001E0169 /* BreakingBadCharacter.swift */; };
@@ -61,6 +62,7 @@
 		4F0E737423FF1FA100A33C1C /* CharactersResultsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CharactersResultsViewController.xib; sourceTree = "<group>"; };
 		4F0E737623FF1FAE00A33C1C /* CharactersResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersResultsViewModel.swift; sourceTree = "<group>"; };
 		4F0E737823FF1FC000A33C1C /* CharactersResultsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersResultsModel.swift; sourceTree = "<group>"; };
+		4F6E0A162400B75A00D07D9B /* BreakingBadSeason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakingBadSeason.swift; sourceTree = "<group>"; };
 		4F72437D23F8B9F500E8933E /* CharactersTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersTableView.swift; sourceTree = "<group>"; };
 		4F8699AB2400724A000CB98C /* characters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = characters.json; path = "../../../../Playground/breaking-bad-api.playground/Pages/parsing-response.xcplaygroundpage/Resources/characters.json"; sourceTree = "<group>"; };
 		4F8FE1A323F83576001E0169 /* BreakingBadCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakingBadCharacter.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				4F8FE1A323F83576001E0169 /* BreakingBadCharacter.swift */,
+				4F6E0A162400B75A00D07D9B /* BreakingBadSeason.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				4F06DCEC23FC864300C6F131 /* CharacterRepository.swift in Sources */,
 				4F8FE1AA23F8436A001E0169 /* CharactersListViewController.swift in Sources */,
 				4F06DCE823FB2F0800C6F131 /* BaseWebService.swift in Sources */,
+				4F6E0A172400B75A00D07D9B /* BreakingBadSeason.swift in Sources */,
 				4F0E737123FF1F3200A33C1C /* CharactersResultsDependencyContainer.swift in Sources */,
 				4F8FE1B223F843C0001E0169 /* CharactersListDependencyContainer.swift in Sources */,
 				4F8FE1AE23F84390001E0169 /* CharactersListViewModel.swift in Sources */,
