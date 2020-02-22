@@ -102,9 +102,9 @@ extension CharactersListViewModelImpl: CharacterRespositoryConsumer {
     {
         let domain: String = error.domain
         let code: Int = error.code
-        if domain == CharactersWebService.InternalError.domainName
-            && code == CharactersWebService.InternalError.Code.endOfListReached
-        {
+        guard !(domain == CharactersWebService.InternalError.domainName
+            && code == CharactersWebService.InternalError.Code.endOfListReached)
+        else {
             // We don't want to show UI error when reaching end of list
             return
         }
