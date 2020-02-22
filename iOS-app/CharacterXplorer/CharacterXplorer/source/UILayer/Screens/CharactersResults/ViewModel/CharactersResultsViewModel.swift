@@ -25,12 +25,17 @@ class CharactersResultsViewModelImpl: CharactersResultsViewModel, CharactersResu
     
     // MARK: - Properties
     private let model: CharactersResultsModel
+    private let repository: CharacterRespository
     private weak var viewModelConsumer: CharactersResultsViewModelConsumer!
     
     // MARK: - Initialization
-    required init(model: CharactersResultsModel) {
+    required init(model: CharactersResultsModel,
+                  repository: CharacterRespository)
+    {
         self.model = model
+        self.repository = repository
         self.model.setModelConsumer(self)
+        self.repository.setRepositoryConsumer(self)
         Logger.success.message()
     }
     

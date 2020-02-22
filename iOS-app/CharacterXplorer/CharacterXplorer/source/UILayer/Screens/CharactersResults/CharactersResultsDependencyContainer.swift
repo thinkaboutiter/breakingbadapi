@@ -51,7 +51,15 @@ class CharactersResultsDependencyContainerImpl: CharactersResultsDependencyConta
     
     private func makeCharactersResultsViewModel() -> CharactersResultsViewModel {
         let model: CharactersResultsModel = CharactersResultsModelImpl()
-        let result: CharactersResultsViewModel = CharactersResultsViewModelImpl(model: model)
+        let ws: CharactersWebService = self.makeCharactersWebService()
+        let repository: CharacterRespository = CharactersRepositoryImpl(webService: ws)
+        let result: CharactersResultsViewModel = CharactersResultsViewModelImpl(model: model,
+                                                                                repository: repository)
+        return result
+    }
+    
+    private func makeCharactersWebService() -> CharactersWebService {
+        let result: CharactersWebService = CharactersWebService()
         return result
     }
 }
