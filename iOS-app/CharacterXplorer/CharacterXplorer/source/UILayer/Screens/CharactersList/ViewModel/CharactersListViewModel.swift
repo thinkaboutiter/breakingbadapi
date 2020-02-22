@@ -11,7 +11,8 @@ import SimpleLogger
 
 /// APIs for `View` to expose to `ViewModel`
 protocol CharactersListViewModelConsumer: AnyObject {
-    func reloadCharacters(via viewModel: CharactersListViewModel)
+    func reloadCharacters()
+    func show(_ error: NSError)
 }
 
 /// APIs for `ViewModel` to expose to `View`
@@ -84,7 +85,7 @@ class CharactersListViewModelImpl: CharactersListViewModel, CharactersListModelC
     
     // MARK: - CharactersListModelConsumer protocol
     func didUpdateCharacters(on model: CharactersListModel) {
-        self.viewModelConsumer.reloadCharacters(via: self)
+        self.viewModelConsumer.reloadCharacters()
     }
 }
 
@@ -94,6 +95,20 @@ extension CharactersListViewModelImpl: CharacterRespositoryConsumer {
     func didFetchCharacters(on repository: CharacterRespository) {
         let characters: [BreakingBadCharacter] = repository.flushCharacters()
         self.model.addCharacters(characters)
+    }
+    
+    func didFailToFetchCharacters(on repository: CharacterRespository,
+                                  with error: NSError)
+    {
+        let domain: String = error.domain
+        let code: Int = error.code
+        if domain == CharactersWebService.InternalError.domainName
+            && code == CharactersWebService.InternalError.Code.endOfListReached
+        {
+            // We don't want to show UI error when reaching end of list
+            return
+        }
+        self.viewModelConsumer.show(error)
     }
 }
 

@@ -60,8 +60,12 @@ class CharactersResultsViewController: BaseViewController, CharactersResultsView
     }
     
     // MARK: - CharactersResultsViewModelConsumer protocol
-    func reloadCharacters(via viewModel: CharactersResultsViewModel) {
+    func reloadCharacters() {
         self.charactersTableView.reloadData()
+    }
+    
+    func show(_ error: NSError) {
+        self.showAlert(for: error)
     }
     
     // MARK: - Life cycle

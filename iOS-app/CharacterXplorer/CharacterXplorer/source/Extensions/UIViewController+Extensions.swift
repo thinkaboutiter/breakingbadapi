@@ -85,3 +85,44 @@ extension UIViewController {
         }
     }
 }
+
+// MARK: - Error alerts
+extension UIViewController {
+    /**
+     Show alert for error object with custom button and handler. Default alert title is "Error"
+     - parameter error: Error object we are displaying alert for
+     - parameter actionTitle: custom title for the action button
+     - parameter actionHandler: custom handler
+     */
+    func showAlert(
+        for error: NSError,
+        alertTitle: String = NSLocalizedString("UIViewController.showAlert.alertTitle.default.Error", comment: AppConstants.LocalizedStringComment.screenTitle),
+        actionTitle: String = NSLocalizedString("UIViewController.showAlert.actionTitle.default.OK", comment: AppConstants.LocalizedStringComment.buttonTitle),
+        actionHandler: ((_ action: UIAlertAction) -> Void)? = nil)
+    {
+        let alertTitle: String = "\(alertTitle): \(error.code)"
+        let alertMessage: String = error.localizedDescription
+        self.showAlertWithTitle(alertTitle, alertMessage: alertMessage, actionTitle: actionTitle, actionHandler: actionHandler)
+    }
+    
+    /**
+     Show alert with button and handler.
+     - parameter alertTitle: Alert title
+     - parameter alertMessage: Alert message we want to display
+     - parameter actionTitle: custom title for the action button
+     - parameter actionHandler: custom handler
+     */
+    func showAlertWithTitle(
+        _ alertTitle: String? = nil,
+        alertMessage: String?,
+        actionTitle: String = NSLocalizedString("OK", comment: AppConstants.LocalizedStringComment.buttonTitle),
+        actionHandler: ((_ action: UIAlertAction) -> Void)? = nil)
+    {
+        // present alert to the user
+        let alertController: UIAlertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        let alertAction: UIAlertAction = UIAlertAction(title: actionTitle, style: .default, handler: actionHandler)
+        alertController.addAction(alertAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+}
