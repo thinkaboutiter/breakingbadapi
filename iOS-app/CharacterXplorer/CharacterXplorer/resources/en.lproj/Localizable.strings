@@ -18,3 +18,7 @@
 "BreakingBadSeason.allSeasons.stringValue.season-3" = "S3";
 "BreakingBadSeason.allSeasons.stringValue.season-4" = "S4";
 "BreakingBadSeason.allSeasons.stringValue.season-5" = "S5";
+
+/* Error */
+"UIViewController.showAlert.alertTitle.default.Error" = "Error";
+"UIViewController.showAlert.actionTitle.default.OK" = "OK";

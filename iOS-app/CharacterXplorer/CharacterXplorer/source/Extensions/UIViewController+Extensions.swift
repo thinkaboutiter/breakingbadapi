@@ -96,8 +96,8 @@ extension UIViewController {
      */
     func showAlert(
         for error: NSError,
-        alertTitle: String = NSLocalizedString("Error", comment: AppConstants.LocalizedStringComment.screenTitle),
-        actionTitle: String = NSLocalizedString("OK", comment: AppConstants.LocalizedStringComment.buttonTitle),
+        alertTitle: String = NSLocalizedString("UIViewController.showAlert.alertTitle.default.Error", comment: AppConstants.LocalizedStringComment.screenTitle),
+        actionTitle: String = NSLocalizedString("UIViewController.showAlert.actionTitle.default.OK", comment: AppConstants.LocalizedStringComment.buttonTitle),
         actionHandler: ((_ action: UIAlertAction) -> Void)? = nil)
     {
         let alertTitle: String = "\(alertTitle): \(error.code)"
