@@ -9,18 +9,16 @@
 import Foundation
 import SimpleLogger
 
-protocol CharacterDetailsDependencyContainer: AnyObject {
-    var imageCache: ImageCacheManager { get }
-}
+protocol CharacterDetailsDependencyContainer: ImageCacheProvider {}
 
 class CharacterDetailsDependencyContainerImpl: CharacterDetailsDependencyContainer, CharacterDetailsViewControllerFactory {
     
     // MARK: - Properties
-    private let parent: CharactersListDependencyContainer
+    private let parent: ImageCacheProvider
     private let getCharacter: () -> BreakingBadCharacter
     
     // MARK: - Initialization
-    init(parent: CharactersListDependencyContainer,
+    init(parent: ImageCacheProvider,
          characterProvider provider: @escaping () -> BreakingBadCharacter)
     {
         self.parent = parent

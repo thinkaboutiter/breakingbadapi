@@ -3,6 +3,8 @@
 
 /* CharactersListViewController */
 "CharactersListViewController.title.characters" = "Characters";
+/* UISearchController */
+"UISearchController.searchBar.placeholder.search-character-by-name" = "Search character by name";
 
 /* CharacterDetailsViewController */
 "CharacterDetailsViewController.occupationTitle.occupation" = "Occupation";

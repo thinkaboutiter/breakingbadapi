@@ -11,6 +11,7 @@ import SimpleLogger
 
 protocol RootDependencyContainer: AnyObject {
     var imageCache: ImageCacheManager { get }
+    var rootNavigationController: BaseNavigationController { get }
 }
 
 class RootDependencyContainerImpl: RootDependencyContainer, RootViewControllerFactory {
@@ -29,10 +30,13 @@ class RootDependencyContainerImpl: RootDependencyContainer, RootViewControllerFa
         return ImageCacheManagerImpl.shared
     }
     
+    let rootNavigationController: BaseNavigationController = BaseNavigationController()
+    
     // MARK: - RootViewControllerFactory protocol
     func makeRootViewController() -> RootViewController {
         let factory: CharactersListViewControllerFactory = CharactersListDependencyContainerImpl(parent: self)
-        let vc: RootViewController = RootViewController(charactersListViewControllerFactory: factory)
+        let vc: RootViewController = RootViewController(charactersListViewControllerFactory: factory,
+                                                        contextNavigationController: self.rootNavigationController)
         return vc
     }
 }

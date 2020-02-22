@@ -1,8 +1,8 @@
 //
-//  CharactersListViewController.swift
+//  CharactersResultsViewController.swift
 //  CharacterXplorer
 //
-//  Created by Boyan Yankov on 2020-W07-15-Feb-Sat.
+//  Created by Boyan Yankov on 2020-W08-20-Feb-Thu.
 //  Copyright © 2020 boyankov@yahoo.com. All rights reserved.
 //
 
@@ -10,31 +10,18 @@ import UIKit
 import SimpleLogger
 
 /// APIs for `DependecyContainer` to expose.
-protocol CharactersListViewControllerFactory {
-    func makeCharactersListViewController() -> CharactersListViewController
+protocol CharactersResultsViewControllerFactory {
+    func makeCharactersResultsViewController() -> CharactersResultsViewController
 }
 
-class CharactersListViewController: BaseViewController, CharactersListViewModelConsumer {
+class CharactersResultsViewController: BaseViewController, CharactersResultsViewModelConsumer {
     
     // MARK: - Properties
-    private let viewModel: CharactersListViewModel
+    private let viewModel: CharactersResultsViewModel
     private let provideCharacterDetailsViewControllerFactoryWith: CharacterDetailsViewControllerFactoryProvider
-    private let charactersResultsViewControllerFactory: CharactersResultsViewControllerFactory
-    private lazy var searchController: UISearchController = {
-        let vc: CharactersResultsViewController =
-            self.charactersResultsViewControllerFactory.makeCharactersResultsViewController()
-        let result: UISearchController = UISearchController(searchResultsController: vc)
-        result.searchResultsUpdater = vc
-        result.obscuresBackgroundDuringPresentation = true
-        result.searchBar.placeholder =
-            NSLocalizedString("UISearchController.searchBar.placeholder.search-character-by-name",
-                              comment: AppConstants.LocalizedStringComment.labelTitle)
-        return result
-    }()
     private let imageCache: ImageCacheManager
-    private var refreshControl: UIRefreshControl = UIRefreshControl()
+    private let contextNavigationController: UINavigationController
     @IBOutlet private weak var charactersTableView: CharactersTableView!
-    
     
     // MARK: - Initialization
     @available(*, unavailable, message: "Creating this view controller with `init(coder:)` is unsupported in favor of initializer dependency injection.")
@@ -44,21 +31,26 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     
     @available(*, unavailable, message: "Creating this view controller with `init(nibName:bundle:)` is unsupported in favor of initializer dependency injection.")
     override init(nibName nibNameOrNil: String?,
-                  bundle nibBundleOrNil: Bundle?)
-    {
+                  bundle nibBundleOrNil: Bundle?) {
         fatalError("Creating this view controller with `init(nibName:bundle:)` is unsupported in favor of dependency injection initializer.")
     }
     
-    init(viewModel: CharactersListViewModel,
+    /// Custom initializer.
+    /// - Parameters:
+    ///   - viewModel: the view model object
+    ///   - provider: closure to provide `CharacterDerailsViewController` object
+    ///   - imageCache: shared image cache
+    ///   - contextNavigationController: `UINavigationController` object to be used to push new content onto
+    init(viewModel: CharactersResultsViewModel,
          characterDetailsProvider provider: @escaping CharacterDetailsViewControllerFactoryProvider,
-         charactersResultsFactory factory: CharactersResultsViewControllerFactory,
-         imageCache: ImageCacheManager)
+         imageCache: ImageCacheManager,
+         contextNavigationController: BaseNavigationController)
     {
         self.viewModel = viewModel
         self.provideCharacterDetailsViewControllerFactoryWith = provider
-        self.charactersResultsViewControllerFactory = factory
         self.imageCache = imageCache
-        super.init(nibName: String(describing: CharactersListViewController.self), bundle: nil)
+        self.contextNavigationController = contextNavigationController
+        super.init(nibName: String(describing: CharactersResultsViewController.self), bundle: nil)
         self.viewModel.setViewModelConsumer(self)
         Logger.success.message()
     }
@@ -67,11 +59,8 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
         Logger.fatal.message()
     }
     
-    // MARK: - CharactersListViewModelConsumer protocol
-    func reloadCharacters(via viewModel: CharactersListViewModel) {
-        if self.refreshControl.isRefreshing {
-            self.refreshControl.endRefreshing()
-        }
+    // MARK: - CharactersResultsViewModelConsumer protocol
+    func reloadCharacters(via viewModel: CharactersResultsViewModel) {
         self.charactersTableView.reloadData()
     }
     
@@ -79,20 +68,16 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configure_ui()
-        self.viewModel.fetchCharacters()
-        self.refreshControl.beginRefreshing()
     }
 }
 
 // MARK: - UI configurations
-private extension CharactersListViewController {
+private extension CharactersResultsViewController {
     
     func configure_ui() {
         self.configure_title(&self.title)
         self.configure_charactersTableView(self.charactersTableView)
-        self.configure_refreshControl(self.refreshControl)
-        self.charactersTableView.addSubview(self.refreshControl)
-        self.navigationItem.searchController = self.searchController
+
     }
     
     func configure_title(_ title: inout String?) {
@@ -109,22 +94,10 @@ private extension CharactersListViewController {
         tableView.insetsContentViewsToSafeArea = true
         tableView.separatorStyle = .none
     }
-    
-    func configure_refreshControl(_ refreshControl: UIRefreshControl) {
-        refreshControl.addTarget(self,
-                                 action: #selector(refresh(sender:)),
-                                 for: .valueChanged)
-    }
-    
-    @objc
-    func refresh(sender: UIRefreshControl) {
-        sender.endRefreshing()
-        self.viewModel.refreshCharacters()
-    }
 }
 
 // MARK: - UITableViewDataSource protocol
-extension CharactersListViewController: UITableViewDataSource {
+extension CharactersResultsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int
@@ -159,22 +132,12 @@ extension CharactersListViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate protocol
-extension CharactersListViewController: UITableViewDelegate {
+extension CharactersResultsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         return Constants.cellHeight
-    }
-    
-    func tableView(_ tableView: UITableView,
-                   willDisplay cell: UITableViewCell,
-                   forRowAt indexPath: IndexPath)
-    {
-        let count: Int = self.viewModel.getCharactes().count
-        if indexPath.row == (count - 1) {
-            self.viewModel.fetchCharacters()
-        }
     }
     
     func tableView(_ tableView: UITableView,
@@ -189,19 +152,8 @@ extension CharactersListViewController: UITableViewDelegate {
             let factory: CharacterDetailsViewControllerFactory =
                 self.provideCharacterDetailsViewControllerFactoryWith(character)
             let vc: CharacterDetailsViewController = factory.makeCharacterDetailsViewController()
-            guard let valid_nc: UINavigationController = self.navigationController else {
-                let message: String = NSLocalizedString("Unable to obtain \(String(describing: UINavigationController.self)) object!",
-                                                        comment: AppConstants.LocalizedStringComment.errorMessage)
-                let error: NSError = ErrorCreator
-                    .custom(domain: InternalError.domainName,
-                            code: InternalError.Code.unableToObtainNavigationController,
-                            localizedMessage: message)
-                    .error()
-                Logger.error.message().object(error)
-                return
-            }
-            valid_nc.pushViewController(vc,
-                                        animated: true)
+            self.contextNavigationController.pushViewController(vc,
+                                                                animated: true)
         }
         catch {
             Logger.error.message().object(error as NSError)
@@ -215,8 +167,27 @@ extension CharactersListViewController: UITableViewDelegate {
     }
 }
 
+extension CharactersResultsViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let valid_text: String = searchController.searchBar.text else {
+            let message: String = NSLocalizedString("Invalid searchBar.text object!",
+                                                    comment: AppConstants.LocalizedStringComment.errorMessage)
+            let error: NSError = ErrorCreator
+                .custom(domain: InternalError.domainName,
+                        code: InternalError.Code.invalidSearchText,
+                        localizedMessage: message)
+                .error()
+            Logger.error.message().object(error)
+            return
+        }
+        Logger.debug.message("searchBar.text=\(valid_text)")
+        self.viewModel.getCharacterByName(valid_text)
+    }
+}
+
 // MARK: - Constants
-private extension CharactersListViewController {
+private extension CharactersResultsViewController {
     
     enum Constants {
         static let cellHeight: CGFloat = 82.0
@@ -224,13 +195,13 @@ private extension CharactersListViewController {
 }
 
 // MARK: - Internal Errors
-private extension CharactersListViewController {
+private extension CharactersResultsViewController {
     
     enum InternalError {
-        static let domainName: String = "\(AppConstants.projectName).\(String(describing: CharactersListViewController.self)).\(String(describing: InternalError.self))"
+        static let domainName: String = "\(AppConstants.projectName).\(String(describing: CharactersResultsViewController.self)).\(String(describing: InternalError.self))"
         
         enum Code {
-            static let unableToObtainNavigationController: Int = 9000
+            static let invalidSearchText: Int = 9000
         }
     }
 }

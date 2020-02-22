@@ -9,8 +9,12 @@
 import Foundation
 import SimpleLogger
 
-protocol CharactersListDependencyContainer: AnyObject {
+protocol ImageCacheProvider: AnyObject {
     var imageCache: ImageCacheManager { get }
+}
+
+protocol CharactersListDependencyContainer: ImageCacheProvider {
+    var rootNavigationController: BaseNavigationController { get }
 }
 
 typealias CharacterDetailsViewControllerFactoryProvider = (BreakingBadCharacter) -> CharacterDetailsViewControllerFactory
@@ -26,6 +30,10 @@ class CharactersListDependencyContainerImpl: CharactersListDependencyContainer, 
         }
         return factory
     }
+    private lazy var factory: CharactersResultsViewControllerFactory = {
+        let result: CharactersResultsViewControllerFactory = CharactersResultsDependencyContainerImpl(parent: self)
+        return result
+    }()
     
     // MARK: - Initialization
     init(parent: RootDependencyContainer) {
@@ -42,11 +50,16 @@ class CharactersListDependencyContainerImpl: CharactersListDependencyContainer, 
         return self.parent.imageCache
     }
     
+    var rootNavigationController: BaseNavigationController {
+        return self.parent.rootNavigationController
+    }
+    
     // MARK: - CharactersListViewControllerFactory protocol
     func makeCharactersListViewController() -> CharactersListViewController {
         let vm: CharactersListViewModel = self.makeCharactersListViewModel()
         let vc: CharactersListViewController = CharactersListViewController(viewModel: vm,
-                                                                            provider: self.provider,
+                                                                            characterDetailsProvider: self.provider,
+                                                                            charactersResultsFactory: self.factory,
                                                                             imageCache: self.imageCache)
         return vc
     }
