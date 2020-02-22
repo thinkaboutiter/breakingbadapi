@@ -11,3 +11,10 @@
 "CharacterDetailsViewController.statusTitle.status" = "Status";
 "CharacterDetailsViewController.seasonAppearanceTitle.season-appearance" = "Season appearance";
 
+/* Episode title */
+"BreakingBadSeason.allSeasons.stringValue.all" = "All";
+"BreakingBadSeason.allSeasons.stringValue.season-1" = "S1";
+"BreakingBadSeason.allSeasons.stringValue.season-2" = "S2";
+"BreakingBadSeason.allSeasons.stringValue.season-3" = "S3";
+"BreakingBadSeason.allSeasons.stringValue.season-4" = "S4";
+"BreakingBadSeason.allSeasons.stringValue.season-5" = "S5";
