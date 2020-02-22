@@ -20,6 +20,7 @@ protocol CharactersResultsViewModel: AnyObject {
     func getCharactes() -> [BreakingBadCharacter]
     func character(for indexPath: IndexPath) throws -> BreakingBadCharacter
     func getCharacterByName(_ name: String)
+    func setSelectedSeason(_ newValue: BreakingBadSeason)
 }
 
 class CharactersResultsViewModelImpl: CharactersResultsViewModel, CharactersResultsModelConsumer {
@@ -30,6 +31,11 @@ class CharactersResultsViewModelImpl: CharactersResultsViewModel, CharactersResu
     private weak var viewModelConsumer: CharactersResultsViewModelConsumer!
     private var filteredCharactes: [BreakingBadCharacter] = []
     private var searchText: String = ""
+    private var selectedSeason: BreakingBadSeason = .allSeasons
+    func setSelectedSeason(_ newValue: BreakingBadSeason) {
+        self.selectedSeason = newValue
+        self.fetchCharactersIfNeeded()
+    }
     
     // MARK: - Initialization
     required init(model: CharactersResultsModel,
@@ -52,12 +58,27 @@ class CharactersResultsViewModelImpl: CharactersResultsViewModel, CharactersResu
     }
     
     func getCharactes() -> [BreakingBadCharacter] {
-        var result: [BreakingBadCharacter] = []
+        var result: [BreakingBadCharacter] = self.model.characters()
         if !self.searchText.isEmpty {
-            result = self.model.characters()
-                .filter() { $0.name.lowercased().contains(self.searchText.lowercased()) }
+            self.filter(&result, by: self.searchText)
+        }
+        if self.selectedSeason != .allSeasons {
+            self.filter(&result, by: self.selectedSeason)
         }
         return result
+    }
+    
+    private func filter(_ collection: inout [BreakingBadCharacter],
+                        by term: String)
+    {
+        collection = collection
+            .filter() { $0.name.lowercased().contains(term.lowercased()) }
+    }
+    
+    private func filter(_ collection: inout [BreakingBadCharacter],
+                        by season: BreakingBadSeason)
+    {
+        collection = collection.filter() { $0.seasonAppearance.contains(season.rawValue) }
     }
     
     func character(for indexPath: IndexPath) throws -> BreakingBadCharacter {
@@ -81,6 +102,10 @@ class CharactersResultsViewModelImpl: CharactersResultsViewModel, CharactersResu
     
     func getCharacterByName(_ name: String) {
         self.searchText = name
+        self.fetchCharactersIfNeeded()
+    }
+    
+    private func fetchCharactersIfNeeded() {
         if self.model.characters().isEmpty {
             // Unfortunately the API that provides search for character by his/her name
             // supports that only for full name. See: https://breakingbadapi.com/Documentation
@@ -89,7 +114,7 @@ class CharactersResultsViewModelImpl: CharactersResultsViewModel, CharactersResu
             self.repository.fetchCharacters()
         }
         else {
-            self.didUpdateCharacters(on: self.model)
+            self.viewModelConsumer.reloadCharacters(via: self)
         }
     }
     
