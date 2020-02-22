@@ -54,7 +54,12 @@ class CharactersWebService: BaseWebService<[BreakingBadCharacterWebEntity]> {
     {
         guard self.cursor.hasNext else {
             let message: String = "Rreached end of List."
-            Logger.warning.message(message)
+            let error: NSError = ErrorCreator
+            .custom(domain: InternalError.domainName,
+                    code: InternalError.Code.endOfListReached,
+                    localizedMessage: message)
+            .error()
+            failure(error)
             return
         }
         super.fetch(
@@ -115,6 +120,18 @@ extension CharactersWebService {
             else {
                 self.hasNext = false
             }
+        }
+    }
+}
+
+// MARK: - Internal Errors
+private extension CharactersWebService {
+    
+    enum InternalError {
+        static let domainName: String = "\(AppConstants.projectName).\(String(describing: CharactersWebService.self)).\(String(describing: InternalError.self))"
+        
+        enum Code {
+            static let endOfListReached: Int = 9000
         }
     }
 }
