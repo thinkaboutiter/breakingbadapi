@@ -52,6 +52,10 @@ class CharactersWebService: BaseWebService<[BreakingBadCharacterWebEntity]> {
     override func fetch(success: @escaping ([BreakingBadCharacterWebEntity]) -> Void,
                         failure: @escaping (NSError) -> Void)
     {
+        if self.shouldShowFakeError {
+            failure(self.fakeError())
+            return
+        }
         guard self.cursor.hasNext else {
             let message: String = "Rreached end of List."
             let error: NSError = ErrorCreator
@@ -69,6 +73,19 @@ class CharactersWebService: BaseWebService<[BreakingBadCharacterWebEntity]> {
                 success(entities)
         },
             failure: failure)
+    }
+    
+    // MARK: - Fake error
+    private let shouldShowFakeError: Bool = false
+    
+    private func fakeError() -> NSError {
+        let message: String = "Fake error."
+        let error: NSError = ErrorCreator
+        .custom(domain: InternalError.domainName,
+                code: InternalError.Code.fakeError,
+                localizedMessage: message)
+        .error()
+        return error
     }
 }
 
@@ -132,6 +149,7 @@ extension CharactersWebService {
         
         enum Code {
             static let endOfListReached: Int = 9000
+            static let fakeError: Int = 9001
         }
     }
 }
