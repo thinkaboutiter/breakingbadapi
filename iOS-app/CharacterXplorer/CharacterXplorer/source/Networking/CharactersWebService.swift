@@ -17,10 +17,16 @@ class CharactersWebService: BaseWebService<[BreakingBadCharacterWebEntity]> {
     func resetCursor() {
         self.cursor.reset()
     }
+    private var _requestParameters: Parameters?
+    func setRequestParameters(_ newValue: Parameters?) {
+        self._requestParameters = newValue
+    }
     
     // MARK: - Initialization
-    required init(cursor: Cursor) {
+    required init(cursor: Cursor = .infinite,
+                  reuqestParameters parameters: Parameters? = nil) {
         self.cursor = cursor
+        self._requestParameters = parameters
         super.init(endpoint: WebServiceConstants.Endpoint.characters)
         Logger.success.message()
     }
@@ -31,10 +37,15 @@ class CharactersWebService: BaseWebService<[BreakingBadCharacterWebEntity]> {
     
     // MARK: - WebService protocol
     override func requestParameters() -> Parameters? {
-        let result: Parameters = [
-            Constants.ParameterKey.limit: self.cursor.resultsPerPage,
-            Constants.ParameterKey.offset: self.cursor.offset
-        ]
+        var result: Parameters = [:]
+        if self.cursor != Cursor.infinite {
+            result[Constants.ParameterKey.limit] = self.cursor.resultsPerPage
+            result[Constants.ParameterKey.offset] = self.cursor.offset
+        }
+        if let valid_parameters: Parameters = self._requestParameters {
+            // we want the new value if the old key exists
+            result.merge(valid_parameters) { (_, new) in new }
+        }
         return result
     }
     
@@ -72,7 +83,9 @@ extension CharactersWebService {
 // MARK: - Cursor
 extension CharactersWebService {
     
-    struct Cursor {
+    struct Cursor: Equatable {
+        
+        static let infinite: Cursor = Cursor(resultsPerPage: 0)
         
         // MARK: - Properties
         let resultsPerPage: Int
