@@ -11,6 +11,8 @@ import SimpleLogger
 
 protocol CharacterRespositoryConsumer: AnyObject {
     func didFetchCharacters(on repository: CharacterRespository)
+    func didFailToFetchCharacters(on repository: CharacterRespository,
+                                  with error: NSError)
 }
 
 protocol CharacterRespository: AnyObject {
@@ -83,7 +85,8 @@ class CharactersRepositoryImpl: CharacterRespository {
             let characters: [BreakingBadCharacterAppEntity] = entities.map() { BreakingBadCharacterAppEntity(webEntity: $0) }
             self.consume(characters)
         }) { (error: NSError) in
-            Logger.error.message().object(error)
+            self.consumer.didFailToFetchCharacters(on: self,
+                                                   with: error)
         }
     }
     
