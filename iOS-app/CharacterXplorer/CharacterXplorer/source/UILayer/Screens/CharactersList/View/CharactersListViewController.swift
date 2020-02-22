@@ -78,10 +78,9 @@ class CharactersListViewController: BaseViewController, CharactersListViewModelC
     }
     
     func show(_ error: NSError) {
-        if self.refreshControl.isRefreshing {
+        self.showAlert(for: error) { (_) in
             self.refreshControl.endRefreshing()
         }
-        self.showAlert(for: error)
     }
     
     // MARK: - Life cycle
